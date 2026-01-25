@@ -6,3 +6,83 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// Custom responsive styles for Osamunime
+.anime-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .anime-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .card-img-top {
+    height: 200px !important;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .card-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-4, .col-md-8 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .row.g-4 {
+    margin: 0 -0.5rem;
+  }
+
+  .row.g-4 > [class*="col-"] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+// Adjustments for smaller screens
+@media (max-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-lg-3, .col-md-4, .col-sm-6 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+  }
+}
+
+// Improve search form responsiveness
+.navbar .d-flex.me-3 {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .form-control {
+    min-width: 150px;
+  }
+}
+
+// Better alignment for smaller screens
+.card-body .row.g-4 {
+  @media (max-width: 768px) {
+    .col-md-4 {
+      margin-bottom: 1rem;
+    }
+  }
+}

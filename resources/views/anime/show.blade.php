@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="row g-4">
                         <div class="col-md-4">
-                            <img src="{{ $anime['images']['jpg']['large_image_url'] ?? $anime['images']['jpg']['image_url'] }}" class="img-fluid rounded shadow" alt="{{ $anime['title'] }}">
+                            <img src="{{ $anime['images']['jpg']['large_image_url'] ?? $anime['images']['jpg']['image_url'] }}" class="img-fluid rounded shadow" alt="{{ $anime['title'] }}" loading="lazy">
 
                             <div class="mt-3">
                                 @if($anime['score'])
@@ -88,8 +88,29 @@
                                             </div>
 
                                             <div class="mb-3">
+                                                <label for="rating" class="form-label">Rating</label>
+                                                <select name="rating" id="rating" class="form-select">
+                                                    <option value="">Select Rating (1-10)</option>
+                                                    @for($i = 1; $i <= 10; $i++)
+                                                        <option value="{{ $i }}">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="review" class="form-label">Review</label>
+                                                <textarea name="review" id="review" class="form-control" rows="3" placeholder="Share your thoughts about this anime..."></textarea>
+                                            </div>
+
+                                            <div class="mb-3">
                                                 <label for="notes" class="form-label">Notes</label>
                                                 <textarea name="notes" id="notes" class="form-control" rows="3" placeholder="Add your notes here..."></textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="tags" class="form-label">Tags</label>
+                                                <input type="text" name="tags" id="tags" class="form-control" placeholder="Enter tags separated by commas">
+                                                <small class="form-text text-muted">Separate tags with commas (e.g., action, comedy, drama)</small>
                                             </div>
 
                                             <button type="submit" class="btn btn-primary w-100">

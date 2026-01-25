@@ -22,6 +22,12 @@ class AnimeController extends Controller
         $page = $request->input('page', 1);
         $animes = $this->jikanApiService->getTopAnime($page);
 
+        if (empty($animes)) {
+            \Log::warning('No anime data retrieved from API');
+            // Optionally show a warning message to the user
+            session()->flash('warning', 'Could not load anime data. Please try again later.');
+        }
+
         return view('anime.index', compact('animes'));
     }
 
@@ -35,8 +41,16 @@ class AnimeController extends Controller
 
         if (!empty($keyword)) {
             $animes = $this->jikanApiService->searchAnime($keyword, $page);
+            if (empty($animes)) {
+                \Log::warning('No anime found for search term: ' . $keyword);
+                session()->flash('warning', 'No anime found for your search term. Please try a different keyword.');
+            }
         } else {
             $animes = $this->jikanApiService->getTopAnime($page);
+            if (empty($animes)) {
+                \Log::warning('No anime data retrieved from API');
+                session()->flash('warning', 'Could not load anime data. Please try again later.');
+            }
         }
 
         return view('anime.search', compact('animes', 'keyword'));
@@ -66,7 +80,9 @@ class AnimeController extends Controller
         $anime = $this->jikanApiService->getAnimeById($id);
 
         if (!$anime) {
-            abort(404, 'Anime not found');
+            \Log::warning('Anime not found or could not be loaded from API: ' . $id);
+            session()->flash('error', 'This anime could not be loaded. It may not exist or there was an issue retrieving it.');
+            return redirect()->route('anime.index')->with('error', 'This anime could not be loaded. It may not exist or there was an issue retrieving it.');
         }
 
         return view('anime.show', compact('anime'));

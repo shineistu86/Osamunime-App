@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ $favorite->image_url }}" class="img-fluid rounded shadow" alt="{{ $favorite->title }}">
+                            <img src="{{ $favorite->image_url }}" class="img-fluid rounded shadow" alt="{{ $favorite->title }}" loading="lazy">
                         </div>
                         <div class="col-md-8">
                             <h3>{{ $favorite->title }}</h3>
@@ -27,6 +27,23 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="rating" class="form-label">Rating</label>
+                                    <select name="rating" id="rating" class="form-select">
+                                        <option value="">Select Rating</option>
+                                        @for($i = 1; $i <= 10; $i++)
+                                            <option value="{{ $i }}" {{ $favorite->rating == $i ? 'selected' : '' }}>
+                                                {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="review" class="form-label">Review</label>
+                                    <textarea name="review" id="review" class="form-control" rows="3">{{ old('review', $favorite->review) }}</textarea>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="status" class="form-label">Status</label>
                                     <select name="status" id="status" class="form-select">
                                         <option value="Plan to Watch" {{ $favorite->status === 'Plan to Watch' ? 'selected' : '' }}>Plan to Watch</option>
@@ -38,6 +55,12 @@
                                 <div class="mb-3">
                                     <label for="notes" class="form-label">Notes</label>
                                     <textarea name="notes" id="notes" class="form-control" rows="4">{{ old('notes', $favorite->notes) }}</textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tags" class="form-label">Tags</label>
+                                    <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags', $favorite->tags->pluck('name')->join(', ')) }}" placeholder="Enter tags separated by commas">
+                                    <small class="form-text text-muted">Separate tags with commas (e.g., action, comedy, drama)</small>
                                 </div>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">

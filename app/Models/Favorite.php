@@ -16,12 +16,15 @@ class Favorite extends Model
         'title',
         'image_url',
         'score',
+        'rating',
+        'review',
         'status',
         'notes'
     ];
 
     protected $casts = [
         'score' => 'decimal:1',
+        'rating' => 'integer',
     ];
 
     /**
@@ -30,5 +33,13 @@ class Favorite extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the tags associated with the favorite
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'favorite_tag');
     }
 }

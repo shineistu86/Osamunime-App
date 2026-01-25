@@ -13,6 +13,30 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        /* Image loading optimization */
+        img[loading="lazy"] {
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        img[loading="lazy"][data-loaded="true"] {
+            opacity: 1;
+        }
+
+        /* Placeholder effect */
+        .image-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -90,6 +114,36 @@
         </nav>
 
         <main class="py-4">
+            <!-- Display error messages -->
+            @if(session('error'))
+                <div class="container">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Display warning messages -->
+            @if(session('warning'))
+                <div class="container">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ session('warning') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Display success messages -->
+            @if(session('success'))
+                <div class="container">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
 
@@ -102,5 +156,23 @@
 
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Handle image loading for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.setAttribute('data-loaded', 'true');
+                });
+
+                img.addEventListener('error', function() {
+                    // Fallback to placeholder if image fails to load
+                    this.src = 'https://placehold.co/300x400?text=Image+Not+Found';
+                    this.setAttribute('data-loaded', 'true');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -17,12 +17,12 @@
                         </div>
                     @endif
 
-                    <div class="row g-4">
+                    <div class="row g-3 g-md-4">
                         @forelse($animes as $anime)
-                            <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                                 <div class="card h-100 shadow-sm anime-card">
                                     <div class="position-relative">
-                                        <img src="{{ $anime['images']['jpg']['image_url'] ?? 'https://via.placeholder.com/225x300' }}" class="card-img-top" alt="{{ $anime['title'] }}" style="height: 300px; object-fit: cover;">
+                                        <img src="{{ $anime['images']['jpg']['image_url'] ?? 'https://via.placeholder.com/225x300' }}" class="card-img-top" alt="{{ $anime['title'] }}" style="height: 250px; object-fit: cover;" loading="lazy">
                                         @if($anime['score'])
                                             <div class="position-absolute top-0 end-0 m-2">
                                                 <span class="badge bg-warning text-dark">
@@ -32,15 +32,15 @@
                                         @endif
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">{{ Str::limit($anime['title'], 30) }}</h5>
-                                        <p class="card-text">
-                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? 'N/A' }} episodes |
+                                        <h6 class="card-title">{{ Str::limit($anime['title'], 30) }}</h6>
+                                        <p class="card-text small">
+                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? 'N/A' }} |
                                             <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? 'N/A' }}
                                         </p>
 
                                         <div class="mt-auto pt-2">
-                                            <a href="{{ route('anime.show', $anime['mal_id']) }}" class="btn btn-primary w-100">
-                                                <i class="fas fa-eye me-1"></i> View Details
+                                            <a href="{{ route('anime.show', $anime['mal_id']) }}" class="btn btn-primary btn-sm w-100">
+                                                <i class="fas fa-eye me-1"></i> Details
                                             </a>
 
                                             @auth
@@ -51,13 +51,13 @@
                                                     <input type="hidden" name="image_url" value="{{ $anime['images']['jpg']['image_url'] }}">
                                                     <input type="hidden" name="score" value="{{ $anime['score'] }}">
                                                     <input type="hidden" name="status" value="Plan to Watch">
-                                                    <button type="submit" class="btn btn-outline-danger w-100">
-                                                        <i class="fas fa-heart me-1"></i> Add to Favorites
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                                                        <i class="fas fa-heart me-1"></i> Favorite
                                                     </button>
                                                 </form>
                                             @else
-                                                <a href="{{ route('login') }}" class="btn btn-outline-secondary w-100 mt-2">
-                                                    <i class="fas fa-heart me-1"></i> Login to Favorite
+                                                <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2">
+                                                    <i class="fas fa-heart me-1"></i> Login
                                                 </a>
                                             @endauth
                                         </div>
