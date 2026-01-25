@@ -131,6 +131,24 @@ The application can be deployed to platforms like Railway.app. For deployment:
 2. Configure environment variables
 3. Run migrations after deployment
 
+### Railway Deployment Instructions
+
+1. Create a Railway account at [Railway.app](https://railway.app)
+2. Create a new project and connect it to your GitHub repository
+3. Set the following environment variables in Railway:
+   - `APP_ENV=production`
+   - `APP_DEBUG=false`
+   - `DB_CONNECTION=pgsql` (or mysql if you prefer)
+   - `DB_HOST` (provided by Railway)
+   - `DB_PORT` (provided by Railway)
+   - `DB_DATABASE` (provided by Railway)
+   - `DB_USERNAME` (provided by Railway)
+   - `DB_PASSWORD` (provided by Railway)
+   - `JIKAN_API_BASE_URL=https://api.jikan.moe/v4`
+4. Add a PostgreSQL plugin to your Railway project
+5. Deploy the application using the Railway dashboard
+6. Run the initial migrations by executing `php artisan migrate` in the Railway console after the first deployment
+
 ## Repository
 
 GitHub Repository: https://github.com/shineistu86/Osamunime-App.git
