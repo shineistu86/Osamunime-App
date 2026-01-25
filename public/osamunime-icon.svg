@@ -1,0 +1,14 @@
+<svg class="me-2" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle -->
+    <circle cx="15" cy="15" r="14" fill="#F53003" stroke="white" stroke-width="1"/>
+    
+    <!-- Anime/Manga style eyes -->
+    <circle cx="10" cy="13" r="2.5" fill="white"/>
+    <circle cx="20" cy="13" r="2.5" fill="white"/>
+    
+    <!-- Smile -->
+    <path d="M10 20 C15 24, 20 20, 20 20" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    
+    <!-- Decorative star -->
+    <path d="M15 6 L16.5 10.5 L21 10.5 L17.25 13.5 L18.75 18 L15 15 L11.25 18 L12.75 13.5 L9 10.5 L13.5 10.5 Z" fill="white"/>
+</svg>

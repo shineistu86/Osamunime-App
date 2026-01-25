@@ -19,7 +19,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                    <i class="fas fa-star me-2"></i>{{ config('app.name', 'Osamunime') }}
+                    <img src="{{ asset('osamunime-icon.svg') }}" alt="Osamunime Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+                    {{ config('app.name', 'Osamunime') }}
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
