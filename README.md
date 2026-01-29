@@ -1,170 +1,132 @@
-# Osamunime - Anime Favorite Tracker
+# Osamunime - Aplikasi Manajemen Anime Favorit
 
-**Student Name:** [Your Name]  
-**NIM:** [Your NIM]
+## Nama & NIM Mahasiswa
 
-## Description
+-   **Nama:** HISYAM EKA PRAMUDITA
+-   **NIM:** 2307016
 
-Osamunime is a multi-user web application that allows users to search and view anime data from a public API, then save their favorite anime to a personal collection. The application is built with Laravel and consumes the Jikan API (unofficial MyAnimeList API).
+## Teknologi yang Digunakan
 
-## Technologies Used
+-   **Backend:** Laravel 12.x (PHP Framework)
+-   **Frontend:** Bootstrap 5, JavaScript
+-   **Database:** SQLite (lokal) / MySQL (produksi eksternal)
+-   **API:** Jikan API (untuk data anime)
+-   **Build Tool:** Vite
+-   **Server:** Apache/Nginx
+-   **Bahasa Pemrograman:** PHP 8.2+, JavaScript
 
-- **Backend Framework:** Laravel
-- **Frontend:** Blade Templates + Bootstrap
-- **Database:** SQLite (for development)
-- **Authentication:** Laravel Session (bcrypt password hashing)
-- **Public API:** Jikan API (MyAnimeList)
-- **Version Control:** Git & GitHub
+## Cara Instalasi dan Menjalankan Aplikasi
 
-## Features
+### Prasyarat
 
-### Authentication (Multi-User)
-- Register new accounts
-- User login/logout
-- Passwords stored as bcrypt hashes
-- Data isolation (users only access their own data)
+-   PHP 8.2 atau lebih tinggi
+-   Composer
+-   Node.js dan npm
+-   Database (SQLite untuk lokal, MySQL untuk produksi)
 
-### Anime Functionality
-- View top anime from API
-- Search anime by title
-- View detailed anime information
+### Instalasi
 
-### Favorites System (CRUD)
-- **Create:** Save anime from API to personal favorites
-- **Read:** View personal favorite list
-- **Update:** Modify watching status and add notes
-- **Delete:** Remove anime from favorites
+1. Clone repository ini:
 
-## Installation
+    ```bash
+    git clone <url-repository>
+    cd Osamunime-App
+    ```
 
-1. Clone the repository:
-```bash
-git clone https://github.com/shineistu86/Osamunime-App.git
-cd Osamunime-App
-```
+2. Install dependensi PHP:
 
-2. Install dependencies:
-```bash
-composer install
-npm install
-```
+    ```bash
+    composer install
+    ```
 
-3. Copy the environment file and configure:
-```bash
-cp .env.example .env
-```
+3. Copy file environment dan atur konfigurasi:
+
+    ```bash
+    cp .env.example .env
+    ```
 
 4. Generate application key:
-```bash
-php artisan key:generate
-```
 
-5. Run database migrations:
-```bash
-php artisan migrate
-```
+    ```bash
+    php artisan key:generate
+    ```
 
-6. Compile assets:
-```bash
-npm run dev
-```
+5. Install dependensi JavaScript:
 
-7. Start the development server:
-```bash
-php artisan serve
-```
+    ```bash
+    npm install
+    ```
 
-## Usage
+6. Build asset frontend:
 
-1. Visit the application in your browser
-2. Register a new account or log in
-3. Browse top anime or search for specific titles
-4. View anime details
-5. Add anime to your favorites
-6. Manage your favorite list (update status, add notes, remove)
+    ```bash
+    npm run build
+    ```
 
-## API Integration
+7. Jalankan migrasi database:
+    ```bash
+    php artisan migrate
+    ```
 
-The application integrates with the Jikan API to fetch anime data:
-- Base URL: `https://api.jikan.moe/v4`
-- Endpoints used:
-  - `/top/anime` - Get top anime
-  - `/anime?q={keyword}` - Search anime by keyword
-  - `/anime/{id}` - Get detailed anime information
+### Menjalankan Aplikasi
 
-## Database Schema
+1. Jalankan development server:
 
-The application uses the following main tables:
-- `users` - Standard Laravel users table
-- `favorites` - Stores user's favorite anime with fields:
-  - id
-  - user_id
-  - anime_id
-  - title
-  - image_url
-  - score
-  - rating
-  - review
-  - status
-  - notes
-  - created_at
-  - updated_at
-- `tags` - Stores tags for categorizing favorites
-- `favorite_tag` - Pivot table connecting favorites and tags
+    ```bash
+    php artisan serve
+    ```
 
-## Environment Configuration
+2. Buka browser dan akses `http://localhost:8000`
 
-For production deployment, configure these environment variables:
-- `APP_ENV=production`
-- `APP_DEBUG=false`
-- `DB_CONNECTION=sqlite` (for local development) or `external_mysql` (for deployment to serverless platforms)
-- `DB_HOST=your_db_host` (when using external database)
-- `DB_PORT=your_db_port` (when using external database)
-- `DB_DATABASE=your_db_name` (when using external database)
-- `DB_USERNAME=your_db_username` (when using external database)
-- `DB_PASSWORD=your_db_password` (when using external database)
-- `JIKAN_API_BASE_URL=https://api.jikan.moe/v4`
+### Untuk Development (dengan hot reload)
 
-### External Database Configuration (for Serverless Platforms like Vercel)
+1. Jalankan server Laravel di terminal pertama:
 
-When deploying to serverless platforms, you must use an external database because SQLite files are ephemeral and will be lost when the serverless function is not active.
+    ```bash
+    php artisan serve
+    ```
 
-For external MySQL database, configure these additional variables:
-- `EXTERNAL_DB_HOST` - Host dari database MySQL eksternal
-- `EXTERNAL_DB_PORT` - Port dari database MySQL (default: 3306)
-- `EXTERNAL_DB_DATABASE` - Nama database
-- `EXTERNAL_DB_USERNAME` - Username untuk koneksi ke database
-- `EXTERNAL_DB_PASSWORD` - Password untuk koneksi ke database
-- `EXTERNAL_MYSQL_ATTR_SSL_CA` - Path ke file SSL certificate authority jika database memerlukan koneksi SSL
+2. Jalankan Vite watcher di terminal kedua:
+    ```bash
+    npm run dev
+    ```
 
-## Testing
+## Fitur Utama
 
-Run the application tests:
-```bash
-php artisan test
-```
+-   Menampilkan daftar anime dari API eksternal (Jikan API)
+-   Menyimpan anime sebagai favorit
+-   Menambahkan rating dan review untuk anime favorit
+-   Menyaring dan mengurutkan anime favorit
+-   Sistem tagging untuk anime favorit
+-   Responsive design untuk berbagai ukuran layar
 
-## Screenshots
+## Tangkapan Layar (Screenshot)
 
-![Homepage](screenshots/homepage.png)
-![Anime Search](screenshots/search.png)
-![Anime Detail](screenshots/detail.png)
-![Favorites](screenshots/favorites.png)
+### Halaman Utama
+![Halaman Utama](screenshots/Halaman%20Utama.png)
 
-## Deployment
+### Detail Anime
+![Detail Anime](screenshots/Detail%20Anime.png)
 
-The application can be deployed to various hosting platforms. For production deployment:
+### Halaman My Favorite
+![Halaman My Favorite](screenshots/Halaman%20My%20Favorite.png)
 
-1. Set `APP_ENV=production` and `APP_DEBUG=false` in your environment
-2. Configure your production database settings
-3. Run migrations after deployment: `php artisan migrate`
-4. Configure your web server to point to the `public` directory
-5. Set proper file permissions for storage and bootstrap/cache directories
+### Form Edit Favorite
+![Form Edit Favorite](screenshots/Form%20Edit%20Favorite.png)
 
-## Repository
+### Halaman Genre
+![Halaman Genre](screenshots/Halaman%20Genre.png)
 
-GitHub Repository: https://github.com/shineistu86/Osamunime-App.git
+### Halaman Login
+![Halaman Login](screenshots/Login.png)
 
-## License
+### Halaman Register
+![Halaman Register](screenshots/Register.png)
 
-This project is open source and available under the [MIT License](LICENSE).
+## Kontribusi
+
+Kontribusi sangat diterima! Silakan fork repository ini dan buat pull request untuk perubahan yang ingin ditambahkan.
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah lisensi MIT.

@@ -21,7 +21,7 @@ class JikanApiServiceTest extends TestCase
             ], 200)
         ]);
 
-        $service = new JikanApiService();
+        $service = new JikanApiService(false);
         $result = $service->getTopAnime(1);
 
         // Assert the result structure
@@ -45,7 +45,7 @@ class JikanApiServiceTest extends TestCase
             ], 200)
         ]);
 
-        $service = new JikanApiService();
+        $service = new JikanApiService(false);
         $result = $service->getAnimeById(1);
 
         // Assert the result
@@ -62,7 +62,7 @@ class JikanApiServiceTest extends TestCase
             'https://api.jikan.moe/v4/top/anime?page=999' => Http::response([], 500)
         ]);
 
-        $service = new JikanApiService();
+        $service = new JikanApiService(false);
         $result = $service->getTopAnime(999);
 
         // Assert that it returns empty arrays on error
@@ -85,7 +85,7 @@ class JikanApiServiceTest extends TestCase
             ], 200)
         ]);
 
-        $service = new JikanApiService();
+        $service = new JikanApiService(false);
         $result = $service->searchAnime('test', 1);
 
         // Assert the result structure
