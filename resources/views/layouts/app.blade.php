@@ -153,7 +153,7 @@
 
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container text-center">
-                <span class="text-muted">© {{ date('Y') }} Osamunime - Your Personal Anime Tracker</span>
+                <span class="text-muted">© {{ date('Y') }} Osamunime - Aplikasi Manajemen Anime Favorit</span>
             </div>
         </footer>
     </div>
