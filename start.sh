@@ -3,7 +3,7 @@
 # Railway startup script for Osamunime App
 
 # Set the application URL to the Railway-provided URL
-export APP_URL="https://${RAILWAY_DNS:-localhost}"
+export APP_URL="https://${RAILWAY_PUBLIC_URL:-localhost}"
 
 # Check if we're using Railway's PostgreSQL
 if [ ! -z "$POSTGRES_HOST" ]; then
@@ -37,6 +37,10 @@ sleep 5
 
 # Run database migrations
 php artisan migrate --force --no-interaction
+
+# Publish assets and build for production
+php artisan vendor:publish --tag=laravel-assets --force
+npm run build
 
 # Cache configuration for better performance
 php artisan config:clear
