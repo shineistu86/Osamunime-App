@@ -15,7 +15,6 @@ Osamunime is a multi-user web application that allows users to search and view a
 - **Authentication:** Laravel Session (bcrypt password hashing)
 - **Public API:** Jikan API (MyAnimeList)
 - **Version Control:** Git & GitHub
-- **Deployment:** Railway.app (optional)
 
 ## Features
 
@@ -104,10 +103,27 @@ The application uses the following main tables:
   - title
   - image_url
   - score
+  - rating
+  - review
   - status
   - notes
   - created_at
   - updated_at
+- `tags` - Stores tags for categorizing favorites
+- `favorite_tag` - Pivot table connecting favorites and tags
+
+## Environment Configuration
+
+For production deployment, configure these environment variables:
+- `APP_ENV=production`
+- `APP_DEBUG=false`
+- `DB_CONNECTION=mysql` (or pgsql for PostgreSQL)
+- `DB_HOST=your_db_host`
+- `DB_PORT=your_db_port`
+- `DB_DATABASE=your_db_name`
+- `DB_USERNAME=your_db_username`
+- `DB_PASSWORD=your_db_password`
+- `JIKAN_API_BASE_URL=https://api.jikan.moe/v4`
 
 ## Testing
 
@@ -125,29 +141,13 @@ php artisan test
 
 ## Deployment
 
-The application can be deployed to platforms like Railway.app. For deployment:
+The application can be deployed to various hosting platforms. For production deployment:
 
-1. Connect your GitHub repository to Railway
-2. Configure environment variables
-3. Run migrations after deployment
-
-### Railway Deployment Instructions
-
-1. Create a Railway account at [Railway.app](https://railway.app)
-2. Create a new project and connect it to your GitHub repository
-3. Set the following environment variables in Railway:
-   - `APP_ENV=production`
-   - `APP_DEBUG=false`
-   - `DB_CONNECTION=pgsql` (or mysql if you prefer)
-   - `DB_HOST` (provided by Railway)
-   - `DB_PORT` (provided by Railway)
-   - `DB_DATABASE` (provided by Railway)
-   - `DB_USERNAME` (provided by Railway)
-   - `DB_PASSWORD` (provided by Railway)
-   - `JIKAN_API_BASE_URL=https://api.jikan.moe/v4`
-4. Add a PostgreSQL plugin to your Railway project
-5. Deploy the application using the Railway dashboard
-6. Run the initial migrations by executing `php artisan migrate` in the Railway console after the first deployment
+1. Set `APP_ENV=production` and `APP_DEBUG=false` in your environment
+2. Configure your production database settings
+3. Run migrations after deployment: `php artisan migrate`
+4. Configure your web server to point to the `public` directory
+5. Set proper file permissions for storage and bootstrap/cache directories
 
 ## Repository
 
