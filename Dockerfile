@@ -1,6 +1,6 @@
 FROM php:8.2-cli
 
-# Install system dependencies
+# Install system dependencies including PostgreSQL development libraries
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,13 +10,12 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     nodejs \
-    npm
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+    npm \
+    libpq-dev \
+    postgresql-client \
+    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
