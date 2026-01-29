@@ -25,13 +25,13 @@
                                 @endif
 
                                 <div class="mt-3">
-                                    <h5>Information</h5>
+                                    <h5>{{ __('Information') }}</h5>
                                     <ul class="list-unstyled">
-                                        <li><i class="fas fa-video me-2 text-primary"></i> <strong>Type:</strong> {{ $anime['type'] ?? 'N/A' }}</li>
-                                        <li><i class="fas fa-film me-2 text-primary"></i> <strong>Episodes:</strong> {{ $anime['episodes'] ?? 'N/A' }}</li>
-                                        <li><i class="fas fa-flag me-2 text-primary"></i> <strong>Status:</strong> {{ $anime['status'] ?? 'N/A' }}</li>
-                                        <li><i class="fas fa-calendar me-2 text-primary"></i> <strong>Aired:</strong> {{ $anime['aired']['string'] ?? 'N/A' }}</li>
-                                        <li><i class="fas fa-sun me-2 text-primary"></i> <strong>Season:</strong> {{ ucfirst($anime['season'] ?? 'Unknown') }} {{ $anime['year'] ?? 'Unknown' }}</li>
+                                        <li><i class="fas fa-video me-2 text-primary"></i> <strong>{{ __('Type:') }}</strong> {{ $anime['type'] ?? __('N/A') }}</li>
+                                        <li><i class="fas fa-film me-2 text-primary"></i> <strong>{{ __('Episodes:') }}</strong> {{ $anime['episodes'] ?? __('N/A') }}</li>
+                                        <li><i class="fas fa-flag me-2 text-primary"></i> <strong>{{ __('Status:') }}</strong> {{ $anime['status'] ?? __('N/A') }}</li>
+                                        <li><i class="fas fa-calendar me-2 text-primary"></i> <strong>{{ __('Aired:') }}</strong> {{ $anime['aired']['string'] ?? __('N/A') }}</li>
+                                        <li><i class="fas fa-sun me-2 text-primary"></i> <strong>{{ __('Season:') }}</strong> {{ ucfirst($anime['season'] ?? __('Unknown')) }} {{ $anime['year'] ?? __('Unknown') }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -39,8 +39,8 @@
 
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <h3>Synopsis</h3>
-                                <p class="lead">{!! nl2br(e($anime['synopsis'] ?? 'No synopsis available.')) !!}</p>
+                                <h3>{{ __('Synopsis') }}</h3>
+                                <p class="lead">{!! nl2br(e($anime['synopsis'] ?? __('No synopsis available.'))) !!}</p>
                             </div>
 
                             @if($anime['studios'] && count($anime['studios']) > 0)
@@ -68,7 +68,7 @@
                             @auth
                                 <div class="card border-primary mt-4">
                                     <div class="card-header bg-primary text-white">
-                                        <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add to Favorites</h4>
+                                        <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>{{ __('Add to Favorites') }}</h4>
                                     </div>
                                     <div class="card-body">
                                         <form action="{{ route('favorites.store') }}" method="POST">
@@ -79,42 +79,42 @@
                                             <input type="hidden" name="score" value="{{ $anime['score'] }}">
 
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
+                                                <label for="status" class="form-label">{{ __('Status') }}</label>
                                                 <select name="status" id="status" class="form-select">
-                                                    <option value="Plan to Watch" selected>Plan to Watch</option>
-                                                    <option value="Watching">Watching</option>
-                                                    <option value="Completed">Completed</option>
+                                                    <option value="Plan to Watch" selected>{{ __('Plan to Watch') }}</option>
+                                                    <option value="Watching">{{ __('Watching') }}</option>
+                                                    <option value="Completed">{{ __('Completed') }}</option>
                                                 </select>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="rating" class="form-label">Rating</label>
+                                                <label for="rating" class="form-label">{{ __('Rating') }}</label>
                                                 <select name="rating" id="rating" class="form-select">
-                                                    <option value="">Select Rating (1-10)</option>
+                                                    <option value="">{{ __('Select Rating') }} (1-10)</option>
                                                     @for($i = 1; $i <= 10; $i++)
-                                                        <option value="{{ $i }}">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</option>
+                                                        <option value="{{ $i }}">{{ $i }} {{ $i > 1 ? __('Stars') : __('Star') }}</option>
                                                     @endfor
                                                 </select>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="review" class="form-label">Review</label>
-                                                <textarea name="review" id="review" class="form-control" rows="3" placeholder="Share your thoughts about this anime..."></textarea>
+                                                <label for="review" class="form-label">{{ __('Review') }}</label>
+                                                <textarea name="review" id="review" class="form-control" rows="3" placeholder="{{ __('Share your thoughts about this anime...') }}"></textarea>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="notes" class="form-label">Notes</label>
-                                                <textarea name="notes" id="notes" class="form-control" rows="3" placeholder="Add your notes here..."></textarea>
+                                                <label for="notes" class="form-label">{{ __('Notes') }}</label>
+                                                <textarea name="notes" id="notes" class="form-control" rows="3" placeholder="{{ __('Add your notes here...') }}"></textarea>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="tags" class="form-label">Tags</label>
-                                                <input type="text" name="tags" id="tags" class="form-control" placeholder="Enter tags separated by commas">
-                                                <small class="form-text text-muted">Separate tags with commas (e.g., action, comedy, drama)</small>
+                                                <label for="tags" class="form-label">{{ __('Tags') }}</label>
+                                                <input type="text" name="tags" id="tags" class="form-control" placeholder="{{ __('Enter tags separated by commas') }}">
+                                                <small class="form-text text-muted">{{ __('Separate tags with commas (e.g., action, comedy, drama)') }}</small>
                                             </div>
 
                                             <button type="submit" class="btn btn-primary w-100">
-                                                <i class="fas fa-heart me-1"></i> Add to Favorites
+                                                <i class="fas fa-heart me-1"></i> {{ __('Add to Favorites') }}
                                             </button>
                                         </form>
                                     </div>
@@ -123,10 +123,10 @@
                                 <div class="card border-warning mt-4">
                                     <div class="card-body text-center">
                                         <i class="fas fa-lock fa-2x text-warning mb-3"></i>
-                                        <h5 class="card-title">Log in to add to favorites</h5>
-                                        <p class="card-text">Sign in to track this anime in your personal collection.</p>
+                                        <h5 class="card-title">{{ __('Log in to add to favorites') }}</h5>
+                                        <p class="card-text">{{ __('Sign in to track this anime in your personal collection.') }}</p>
                                         <a href="{{ route('login') }}" class="btn btn-warning">
-                                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                                            <i class="fas fa-sign-in-alt me-1"></i> {{ __('Login') }}
                                         </a>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
 
                             <div class="mt-4">
                                 <a href="{{ route('anime.index') }}" class="btn btn-outline-primary">
-                                    <i class="fas fa-arrow-left me-1"></i> Back to Anime List
+                                    <i class="fas fa-arrow-left me-1"></i> {{ __('Back to Anime List') }}
                                 </a>
                             </div>
                         </div>

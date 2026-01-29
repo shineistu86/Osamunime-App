@@ -7,7 +7,7 @@
             <div class="card border-0 shadow">
                 <div class="card-header bg-primary text-white text-center py-3">
                     <h1 class="mb-0"><i class="fas fa-fire text-warning me-2"></i>{{ __('Anime Populer') }}</h1>
-                    <p class="mb-0 opacity-75">Temukan serial anime paling populer saat ini</p>
+                    <p class="mb-0 opacity-75">{{ __('Temukan serial anime paling populer saat ini') }}</p>
                 </div>
 
                 <div class="card-body">
@@ -34,13 +34,13 @@
                                     <div class="card-body d-flex flex-column">
                                         <h6 class="card-title">{{ Str::limit($anime['title'], 30) }}</h6>
                                         <p class="card-text small">
-                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? 'N/A' }} |
-                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? 'N/A' }}
+                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? __('N/A') }} |
+                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? __('N/A') }}
                                         </p>
 
                                         <div class="mt-auto pt-2">
                                             <a href="{{ route('anime.show', $anime['mal_id']) }}" class="btn btn-primary btn-sm w-100">
-                                                <i class="fas fa-eye me-1"></i> Details
+                                                <i class="fas fa-eye me-1"></i> {{ __('Details') }}
                                             </a>
 
                                             @auth
@@ -52,12 +52,12 @@
                                                     <input type="hidden" name="score" value="{{ $anime['score'] }}">
                                                     <input type="hidden" name="status" value="Plan to Watch">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                                                        <i class="fas fa-heart me-1"></i> Favorite
+                                                        <i class="fas fa-heart me-1"></i> {{ __('Favorite') }}
                                                     </button>
                                                 </form>
                                             @else
                                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-                                                    <i class="fas fa-heart me-1"></i> Login
+                                                    <i class="fas fa-heart me-1"></i> {{ __('Login to favorite') }}
                                                 </a>
                                             @endauth
                                         </div>
@@ -68,8 +68,8 @@
                             <div class="col-12">
                                 <div class="text-center py-5">
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                                    <h4 class="text-muted">No anime found</h4>
-                                    <p class="text-muted">Try adjusting your search criteria</p>
+                                    <h4 class="text-muted">{{ __('No anime found') }}</h4>
+                                    <p class="text-muted">{{ __('Try adjusting your search criteria') }}</p>
                                 </div>
                             </div>
                         @endforelse

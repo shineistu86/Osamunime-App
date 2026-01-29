@@ -7,7 +7,7 @@
             <div class="card border-0 shadow">
                 <div class="card-header bg-danger text-white text-center py-3">
                     <h1 class="mb-0"><i class="fas fa-heart text-warning me-2"></i>{{ __('My Favorite Anime') }}</h1>
-                    <p class="mb-0 opacity-75">Your personal collection of favorite anime</p>
+                    <p class="mb-0 opacity-75">{{ __("Your personal collection of favorite anime") }}</p>
                 </div>
 
                 <div class="card-body">
@@ -23,31 +23,31 @@
                         <div class="col-md-12">
                             <form method="GET" action="{{ route('favorites.index') }}" class="row g-3 align-items-center">
                                 <div class="col-md-3">
-                                    <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">{{ __('Status') }}</label>
                                     <select name="status" id="status" class="form-select" onchange="this.form.submit()">
-                                        <option value="">All Status</option>
-                                        <option value="Plan to Watch" {{ request('status') === 'Plan to Watch' ? 'selected' : '' }}>Plan to Watch</option>
-                                        <option value="Watching" {{ request('status') === 'Watching' ? 'selected' : '' }}>Watching</option>
-                                        <option value="Completed" {{ request('status') === 'Completed' ? 'selected' : '' }}>Completed</option>
+                                        <option value="">{{ __('All Status') }}</option>
+                                        <option value="Plan to Watch" {{ request('status') === 'Plan to Watch' ? 'selected' : '' }}>{{ __('Plan to Watch') }}</option>
+                                        <option value="Watching" {{ request('status') === 'Watching' ? 'selected' : '' }}>{{ __('Watching') }}</option>
+                                        <option value="Completed" {{ request('status') === 'Completed' ? 'selected' : '' }}>{{ __('Completed') }}</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="rating" class="form-label">Rating</label>
+                                    <label for="rating" class="form-label">{{ __('Rating') }}</label>
                                     <select name="rating" id="rating" class="form-select" onchange="this.form.submit()">
-                                        <option value="">All Ratings</option>
+                                        <option value="">{{ __('All Ratings') }}</option>
                                         @for($i = 1; $i <= 10; $i++)
                                             <option value="{{ $i }}" {{ request('rating') == $i ? 'selected' : '' }}>
-                                                {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                                                {{ $i }} {{ $i > 1 ? __('Stars') : __('Star') }}
                                             </option>
                                         @endfor
                                     </select>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="tag" class="form-label">Tag</label>
+                                    <label for="tag" class="form-label">{{ __('Tag') }}</label>
                                     <select name="tag" id="tag" class="form-select" onchange="this.form.submit()">
-                                        <option value="">All Tags</option>
+                                        <option value="">{{ __('All Tags') }}</option>
                                         @foreach($allTags as $tag)
                                             <option value="{{ $tag->name }}" {{ request('tag') === $tag->name ? 'selected' : '' }}>
                                                 {{ $tag->name }}
@@ -57,29 +57,29 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="sort_by" class="form-label">Sort By</label>
+                                    <label for="sort_by" class="form-label">{{ __('Sort By') }}</label>
                                     <select name="sort_by" id="sort_by" class="form-select" onchange="this.form.submit()">
-                                        <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Date Added</option>
-                                        <option value="title" {{ request('sort_by') === 'title' ? 'selected' : '' }}>Title</option>
-                                        <option value="score" {{ request('sort_by') === 'score' ? 'selected' : '' }}>Score</option>
-                                        <option value="rating" {{ request('sort_by') === 'rating' ? 'selected' : '' }}>Rating</option>
-                                        <option value="status" {{ request('sort_by') === 'status' ? 'selected' : '' }}>Status</option>
+                                        <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>{{ __('Date Added') }}</option>
+                                        <option value="title" {{ request('sort_by') === 'title' ? 'selected' : '' }}>{{ __('Title') }}</option>
+                                        <option value="score" {{ request('sort_by') === 'score' ? 'selected' : '' }}>{{ __('Score') }}</option>
+                                        <option value="rating" {{ request('sort_by') === 'rating' ? 'selected' : '' }}>{{ __('Rating') }}</option>
+                                        <option value="status" {{ request('sort_by') === 'status' ? 'selected' : '' }}>{{ __('Status') }}</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-12 mt-2">
                                     <a href="{{ route('favorites.index') }}" class="btn btn-outline-secondary btn-sm">
-                                        <i class="fas fa-times"></i> Clear Filters
+                                        <i class="fas fa-times"></i> {{ __('Clear Filters') }}
                                     </a>
 
                                     <!-- Sort Order Toggle -->
                                     @if(request('sort_order') === 'asc')
                                         <a href="{{ request()->fullUrlWithQuery(['sort_order' => 'desc']) }}" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-sort-amount-down-alt"></i> Descending
+                                            <i class="fas fa-sort-amount-down-alt"></i> {{ __('Descending') }}
                                         </a>
                                     @else
                                         <a href="{{ request()->fullUrlWithQuery(['sort_order' => 'asc']) }}" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-sort-amount-up"></i> Ascending
+                                            <i class="fas fa-sort-amount-up"></i> {{ __('Ascending') }}
                                         </a>
                                     @endif
                                 </div>
@@ -96,14 +96,14 @@
                                             <img src="{{ $favorite->image_url }}" class="card-img-top" alt="{{ $favorite->title }}" style="height: 250px; object-fit: cover;" loading="lazy">
                                             <div class="position-absolute top-0 end-0 m-2">
                                                 <span class="badge bg-{{ $favorite->status === 'Completed' ? 'success' : ($favorite->status === 'Watching' ? 'primary' : 'warning') }}">
-                                                    {{ $favorite->status }}
+                                                    {{ __($favorite->status) }}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="card-body d-flex flex-column">
                                             <h6 class="card-title">{{ Str::limit($favorite->title, 30) }}</h6>
                                             <p class="card-text small">
-                                                <i class="fas fa-star text-warning me-1"></i> {{ $favorite->score ?? 'N/A' }}
+                                                <i class="fas fa-star text-warning me-1"></i> {{ $favorite->score ?? __('N/A') }}
                                                 @if($favorite->rating)
                                                     <br><i class="fas fa-heart text-danger me-1"></i> {{ $favorite->rating }}/10
                                                 @endif
@@ -128,10 +128,10 @@
                                             <div class="mt-auto pt-2">
                                                 <div class="d-grid gap-1">
                                                     <a href="{{ route('anime.show', $favorite->anime_id) }}" class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-eye me-1"></i> Details
+                                                        <i class="fas fa-eye me-1"></i> {{ __('Details') }}
                                                     </a>
                                                     <a href="{{ route('favorites.edit', $favorite->id) }}" class="btn btn-info btn-sm">
-                                                        <i class="fas fa-edit me-1"></i> Edit
+                                                        <i class="fas fa-edit me-1"></i> {{ __('Edit') }}
                                                     </a>
 
                                                     <!-- Button trigger modal -->
@@ -140,7 +140,7 @@
                                                         data-bs-target="#deleteModal"
                                                         data-favorite-id="{{ $favorite->id }}"
                                                         data-favorite-title="{{ $favorite->title }}">
-                                                        <i class="fas fa-trash me-1"></i> Remove
+                                                        <i class="fas fa-trash me-1"></i> {{ __('Remove') }}
                                                     </button>
                                                 </div>
                                             </div>
@@ -156,10 +156,10 @@
                     @else
                         <div class="text-center py-5">
                             <i class="fas fa-heart-broken fa-5x text-muted mb-4"></i>
-                            <h3 class="text-muted">No favorites yet</h3>
-                            <p class="text-muted">You haven't added any anime to your favorites yet.</p>
+                            <h3 class="text-muted">{{ __('No favorites yet') }}</h3>
+                            <p class="text-muted">{{ __('You haven\'t added any anime to your favorites yet.') }}</p>
                             <a href="{{ route('anime.index') }}" class="btn btn-primary btn-lg">
-                                <i class="fas fa-fire me-1"></i> Browse Top Anime
+                                <i class="fas fa-fire me-1"></i> {{ __('Browse Top Anime') }}
                             </a>
                         </div>
                     @endif
@@ -174,18 +174,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Removal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="deleteModalLabel">{{ __('Confirm Removal') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to remove <strong id="animeTitle"></strong> from your favorites?
+                {{ __('Are you sure you want to remove') }} <strong id="animeTitle"></strong> {{ __('from your favorites?') }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                 <form id="deleteForm" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Remove</button>
+                    <button type="submit" class="btn btn-danger">{{ __('Remove') }}</button>
                 </form>
             </div>
         </div>

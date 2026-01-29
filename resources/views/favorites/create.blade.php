@@ -14,7 +14,7 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="anime_id" class="form-label">Anime ID</label>
+                            <label for="anime_id" class="form-label">{{ __('Anime ID') }}</label>
                             <input type="number" class="form-control @error('anime_id') is-invalid @enderror" id="anime_id" name="anime_id" value="{{ old('anime_id') }}" required>
                             @error('anime_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
+                            <label for="title" class="form-label">{{ __('Title') }}</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="image_url" class="form-label">Image URL</label>
+                            <label for="image_url" class="form-label">{{ __('Image URL') }}</label>
                             <input type="url" class="form-control @error('image_url') is-invalid @enderror" id="image_url" name="image_url" value="{{ old('image_url') }}" required>
                             @error('image_url')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="score" class="form-label">Score</label>
+                            <label for="score" class="form-label">{{ __('Score') }}</label>
                             <input type="number" class="form-control @error('score') is-invalid @enderror" id="score" name="score" step="0.1" min="0" max="10" value="{{ old('score') }}">
                             @error('score')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -46,12 +46,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="rating" class="form-label">Rating</label>
+                            <label for="rating" class="form-label">{{ __('Rating') }}</label>
                             <select name="rating" id="rating" class="form-select @error('rating') is-invalid @enderror">
-                                <option value="">Select Rating (1-10)</option>
+                                <option value="">{{ __('Select Rating') }} (1-10)</option>
                                 @for($i = 1; $i <= 10; $i++)
                                     <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>
-                                        {{ $i }} Star{{ $i > 1 ? 's' : '' }}
+                                        {{ $i }} {{ $i > 1 ? __('Stars') : __('Star') }}
                                     </option>
                                 @endfor
                             </select>
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="review" class="form-label">Review</label>
+                            <label for="review" class="form-label">{{ __('Review') }}</label>
                             <textarea name="review" id="review" class="form-control @error('review') is-invalid @enderror" rows="3">{{ old('review') }}</textarea>
                             @error('review')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -69,11 +69,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
+                            <label for="status" class="form-label">{{ __('Status') }}</label>
                             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
-                                <option value="Plan to Watch" {{ old('status') === 'Plan to Watch' ? 'selected' : '' }}>Plan to Watch</option>
-                                <option value="Watching" {{ old('status') === 'Watching' ? 'selected' : '' }}>Watching</option>
-                                <option value="Completed" {{ old('status') === 'Completed' ? 'selected' : '' }}>Completed</option>
+                                <option value="Plan to Watch" {{ old('status') === 'Plan to Watch' ? 'selected' : '' }}>{{ __('Plan to Watch') }}</option>
+                                <option value="Watching" {{ old('status') === 'Watching' ? 'selected' : '' }}>{{ __('Watching') }}</option>
+                                <option value="Completed" {{ old('status') === 'Completed' ? 'selected' : '' }}>{{ __('Completed') }}</option>
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="notes" class="form-label">Notes</label>
+                            <label for="notes" class="form-label">{{ __('Notes') }}</label>
                             <textarea name="notes" id="notes" class="form-control @error('notes') is-invalid @enderror" rows="4">{{ old('notes') }}</textarea>
                             @error('notes')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -89,9 +89,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="tags" class="form-label">Tags</label>
-                            <input type="text" name="tags" id="tags" class="form-control @error('tags') is-invalid @enderror" value="{{ old('tags') }}" placeholder="Enter tags separated by commas">
-                            <small class="form-text text-muted">Separate tags with commas (e.g., action, comedy, drama)</small>
+                            <label for="tags" class="form-label">{{ __('Tags') }}</label>
+                            <input type="text" name="tags" id="tags" class="form-control @error('tags') is-invalid @enderror" value="{{ old('tags') }}" placeholder="{{ __('Enter tags separated by commas') }}">
+                            <small class="form-text text-muted">{{ __('Separate tags with commas (e.g., action, comedy, drama)') }}</small>
                             @error('tags')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -99,10 +99,10 @@
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="{{ route('favorites.index') }}" class="btn btn-secondary me-md-2">
-                                <i class="fas fa-arrow-left me-1"></i> Cancel
+                                <i class="fas fa-arrow-left me-1"></i> {{ __('Cancel') }}
                             </a>
                             <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save me-1"></i> Add Favorite
+                                <i class="fas fa-save me-1"></i> {{ __('Add Favorite') }}
                             </button>
                         </div>
                     </form>

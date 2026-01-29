@@ -54,21 +54,21 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('anime.genre.list') }}">Genre</a>
+                            <a class="nav-link" href="{{ route('anime.genre.list') }}">{{ __('Genre') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('anime.all') }}">Semua Anime</a>
+                            <a class="nav-link" href="{{ route('anime.all') }}">{{ __('Semua Anime') }}</a>
                         </li>
                     </ul>
 
                     <!-- Search Form -->
                     <form class="d-flex me-3" action="{{ route('anime.search') }}" method="GET">
                         <div class="input-group">
-                            <input class="form-control" type="search" name="q" placeholder="Search anime..." aria-label="Search" value="{{ request('q') }}">
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                            <input class="form-control" type="search" name="q" placeholder="{{ __('Search anime...') }}" aria-label="{{ __('Search') }}" value="{{ request('q') }}">
+                            <button class="btn btn-outline-light" type="submit">{{ __('Search') }}</button>
                         </div>
                     </form>
 
@@ -89,7 +89,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('favorites.index') }}">My Favorites</a>
+                                <a class="nav-link" href="{{ route('favorites.index') }}">{{ __('My Favorites') }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -98,7 +98,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('favorites.index') }}">
-                                        <i class="fas fa-heart me-1"></i> My Favorites
+                                        <i class="fas fa-heart me-1"></i> {{ __('My Favorites') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

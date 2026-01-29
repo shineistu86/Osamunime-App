@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card border-0 shadow">
                 <div class="card-header bg-primary text-white text-center py-3">
-                    <h1 class="mb-0"><i class="fas fa-bookmark text-warning me-2"></i>Anime Genre: {{ $genreName }}</h1>
-                    <p class="mb-0 opacity-75">Temukan semua anime dengan genre {{ $genreName }}</p>
+                    <h1 class="mb-0"><i class="fas fa-bookmark text-warning me-2"></i>{{ __('Anime Genre: :genreName', ['genreName' => $genreName]) }}</h1>
+                    <p class="mb-0 opacity-75">{{ __('Temukan semua anime dengan genre :genreName', ['genreName' => $genreName]) }}</p>
                 </div>
 
                 <div class="card-body">
@@ -28,13 +28,13 @@
                                     <div class="card-body d-flex flex-column">
                                         <h6 class="card-title">{{ Str::limit($anime['title'], 30) }}</h6>
                                         <p class="card-text small">
-                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? 'N/A' }} |
-                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? 'N/A' }}
+                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? __('N/A') }} |
+                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? __('N/A') }}
                                         </p>
 
                                         <div class="mt-auto pt-2">
                                             <a href="{{ route('anime.show', $anime['mal_id']) }}" class="btn btn-primary btn-sm w-100">
-                                                <i class="fas fa-eye me-1"></i> Details
+                                                <i class="fas fa-eye me-1"></i> {{ __('Details') }}
                                             </a>
 
                                             @auth
@@ -45,12 +45,12 @@
                                                     <input type="hidden" name="image_url" value="{{ $anime['images']['jpg']['image_url'] }}">
                                                     <input type="hidden" name="score" value="{{ $anime['score'] ?? null }}">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                                                        <i class="fas fa-heart me-1"></i> Favorit
+                                                        <i class="fas fa-heart me-1"></i> {{ __('Favorite') }}
                                                     </button>
                                                 </form>
                                             @else
                                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-                                                    <i class="fas fa-heart me-1"></i> Favorit
+                                                    <i class="fas fa-heart me-1"></i> {{ __('Favorite') }}
                                                 </a>
                                             @endauth
                                         </div>
@@ -61,8 +61,8 @@
                             <div class="col-12">
                                 <div class="text-center py-5">
                                     <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-                                    <h4>Tidak Ada Anime Ditemukan</h4>
-                                    <p class="text-muted">Anime dengan genre {{ $genreName }} tidak ditemukan.</p>
+                                    <h4>{{ __('Tidak Ada Anime Ditemukan') }}</h4>
+                                    <p class="text-muted">{{ __('Anime dengan genre :genreName tidak ditemukan.', ['genreName' => $genreName]) }}</p>
                                 </div>
                             </div>
                         @endforelse

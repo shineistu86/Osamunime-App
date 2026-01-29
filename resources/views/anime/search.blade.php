@@ -18,9 +18,9 @@
                 <div class="card-body">
                     <form class="mb-4" action="{{ route('anime.search') }}" method="GET">
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" name="q" value="{{ $keyword ?? '' }}" placeholder="Search anime...">
+                            <input type="text" class="form-control" name="q" value="{{ $keyword ?? '' }}" placeholder="{{ __('Search anime...') }}">
                             <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search me-1"></i> Search
+                                <i class="fas fa-search me-1"></i> {{ __('Search') }}
                             </button>
                         </div>
                     </form>
@@ -42,13 +42,13 @@
                                     <div class="card-body d-flex flex-column">
                                         <h6 class="card-title">{{ Str::limit($anime['title'], 30) }}</h6>
                                         <p class="card-text small">
-                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? 'N/A' }} |
-                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? 'N/A' }}
+                                            <i class="fas fa-video me-1"></i> {{ $anime['episodes'] ?? __('N/A') }} |
+                                            <i class="fas fa-flag me-1"></i> {{ $anime['status'] ?? __('N/A') }}
                                         </p>
 
                                         <div class="mt-auto pt-2">
                                             <a href="{{ route('anime.show', $anime['mal_id']) }}" class="btn btn-primary btn-sm w-100">
-                                                <i class="fas fa-eye me-1"></i> Details
+                                                <i class="fas fa-eye me-1"></i> {{ __('Details') }}
                                             </a>
 
                                             @auth
@@ -60,12 +60,12 @@
                                                     <input type="hidden" name="score" value="{{ $anime['score'] }}">
                                                     <input type="hidden" name="status" value="Plan to Watch">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                                                        <i class="fas fa-heart me-1"></i> Favorite
+                                                        <i class="fas fa-heart me-1"></i> {{ __('Favorite') }}
                                                     </button>
                                                 </form>
                                             @else
                                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-                                                    <i class="fas fa-heart me-1"></i> Login
+                                                    <i class="fas fa-heart me-1"></i> {{ __('Login') }}
                                                 </a>
                                             @endauth
                                         </div>
@@ -76,10 +76,10 @@
                             <div class="col-12">
                                 <div class="text-center py-5">
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                                    <h4 class="text-muted">No anime found for "{{ $keyword }}"</h4>
-                                    <p class="text-muted">Try adjusting your search criteria</p>
+                                    <h4 class="text-muted">{{ __('No anime found for ":keyword"', ['keyword' => $keyword]) }}</h4>
+                                    <p class="text-muted">{{ __('Try adjusting your search criteria') }}</p>
                                     <a href="{{ route('anime.index') }}" class="btn btn-primary">
-                                        <i class="fas fa-arrow-left me-1"></i> Back to Top Anime
+                                        <i class="fas fa-arrow-left me-1"></i> {{ __('Back to Top Anime') }}
                                     </a>
                                 </div>
                             </div>
