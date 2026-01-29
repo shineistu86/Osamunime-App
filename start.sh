@@ -32,10 +32,16 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
+# Wait a bit for the database to be ready
+sleep 5
+
 # Run database migrations
-php artisan migrate --force
+php artisan migrate --force --no-interaction
 
 # Cache configuration for better performance
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
