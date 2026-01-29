@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
+use App\Http\Requests\StoreFavoriteRequest;
+use App\Http\Requests\UpdateFavoriteRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,19 +64,8 @@ class FavoriteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFavoriteRequest $request)
     {
-        $request->validate([
-            'anime_id' => 'required|integer|unique:favorites,anime_id,NULL,id,user_id,' . Auth::id(),
-            'title' => 'required|string|max:255',
-            'image_url' => 'required|url',
-            'score' => 'nullable|numeric|min:0|max:10',
-            'rating' => 'nullable|integer|min:1|max:10',
-            'review' => 'nullable|string',
-            'status' => 'required|in:Watching,Completed,Plan to Watch',
-            'notes' => 'nullable|string'
-        ]);
-
         $favorite = new Favorite();
         $favorite->user_id = Auth::id();
         $favorite->anime_id = $request->anime_id;
@@ -130,17 +121,9 @@ class FavoriteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFavoriteRequest $request, $id)
     {
         $favorite = Auth::user()->favorites()->findOrFail($id);
-
-        $request->validate([
-            'score' => 'nullable|numeric|min:0|max:10',
-            'rating' => 'nullable|integer|min:1|max:10',
-            'review' => 'nullable|string',
-            'status' => 'required|in:Watching,Completed,Plan to Watch',
-            'notes' => 'nullable|string'
-        ]);
 
         $favorite->update([
             'score' => $request->score ?? null,

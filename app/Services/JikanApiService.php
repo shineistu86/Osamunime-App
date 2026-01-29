@@ -3,14 +3,17 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class JikanApiService
 {
     protected string $baseUrl;
+    protected bool $useCache = true;
 
-    public function __construct()
+    public function __construct(bool $useCache = true)
     {
         $this->baseUrl = config('services.jikan.base_url', env('JIKAN_API_BASE_URL', 'https://api.jikan.moe/v4'));
+        $this->useCache = $useCache;
     }
 
     /**
@@ -20,6 +23,26 @@ class JikanApiService
      * @return array
      */
     public function getTopAnime(int $page = 1): array
+    {
+        if ($this->useCache) {
+            $cacheKey = "jikan_top_anime_page_{$page}";
+            $cacheTime = 30; // Cache for 30 minutes
+
+            return Cache::remember($cacheKey, $cacheTime * 60, function() use ($page) {
+                return $this->fetchTopAnime($page);
+            });
+        } else {
+            return $this->fetchTopAnime($page);
+        }
+    }
+
+    /**
+     * Internal method to fetch top anime without cache
+     *
+     * @param int $page
+     * @return array
+     */
+    private function fetchTopAnime(int $page): array
     {
         try {
             $response = Http::timeout(30)->get("{$this->baseUrl}/top/anime", [
@@ -62,6 +85,27 @@ class JikanApiService
      * @return array
      */
     public function searchAnime(string $keyword, int $page = 1): array
+    {
+        if ($this->useCache) {
+            $cacheKey = "jikan_search_" . md5($keyword) . "_page_{$page}";
+            $cacheTime = 30; // Cache for 30 minutes
+
+            return Cache::remember($cacheKey, $cacheTime * 60, function() use ($keyword, $page) {
+                return $this->fetchSearchAnime($keyword, $page);
+            });
+        } else {
+            return $this->fetchSearchAnime($keyword, $page);
+        }
+    }
+
+    /**
+     * Internal method to search anime without cache
+     *
+     * @param string $keyword
+     * @param int $page
+     * @return array
+     */
+    private function fetchSearchAnime(string $keyword, int $page): array
     {
         try {
             $params = [
@@ -113,6 +157,26 @@ class JikanApiService
      */
     public function getAnimeById(int $id): ?array
     {
+        if ($this->useCache) {
+            $cacheKey = "jikan_anime_{$id}";
+            $cacheTime = 60; // Cache for 60 minutes
+
+            return Cache::remember($cacheKey, $cacheTime * 60, function() use ($id) {
+                return $this->fetchAnimeById($id);
+            });
+        } else {
+            return $this->fetchAnimeById($id);
+        }
+    }
+
+    /**
+     * Internal method to fetch anime by ID without cache
+     *
+     * @param int $id
+     * @return array|null
+     */
+    private function fetchAnimeById(int $id): ?array
+    {
         try {
             $response = Http::timeout(30)->get("{$this->baseUrl}/anime/{$id}");
 
@@ -145,6 +209,27 @@ class JikanApiService
      * @return array
      */
     public function getAnimeByGenre(int $genreId, int $page = 1): array
+    {
+        if ($this->useCache) {
+            $cacheKey = "jikan_genre_{$genreId}_page_{$page}";
+            $cacheTime = 30; // Cache for 30 minutes
+
+            return Cache::remember($cacheKey, $cacheTime * 60, function() use ($genreId, $page) {
+                return $this->fetchAnimeByGenre($genreId, $page);
+            });
+        } else {
+            return $this->fetchAnimeByGenre($genreId, $page);
+        }
+    }
+
+    /**
+     * Internal method to fetch anime by genre without cache
+     *
+     * @param int $genreId
+     * @param int $page
+     * @return array
+     */
+    private function fetchAnimeByGenre(int $genreId, int $page): array
     {
         try {
             $response = Http::timeout(30)->get("{$this->baseUrl}/anime", [
