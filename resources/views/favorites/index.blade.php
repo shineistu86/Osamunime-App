@@ -134,13 +134,14 @@
                                                         <i class="fas fa-edit me-1"></i> Edit
                                                     </a>
 
-                                                    <form action="{{ route('favorites.destroy', $favorite->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this anime from favorites?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm w-100">
-                                                            <i class="fas fa-trash me-1"></i> Remove
-                                                        </button>
-                                                    </form>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger btn-sm w-100"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal"
+                                                        data-favorite-id="{{ $favorite->id }}"
+                                                        data-favorite-title="{{ $favorite->title }}">
+                                                        <i class="fas fa-trash me-1"></i> Remove
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,6 +168,47 @@
         </div>
     </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Removal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove <strong id="animeTitle"></strong> from your favorites?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteModal = document.getElementById('deleteModal');
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var favoriteId = button.getAttribute('data-favorite-id'); // Extract info from data-* attributes
+        var favoriteTitle = button.getAttribute('data-favorite-title');
+
+        var animeTitleElement = deleteModal.querySelector('#animeTitle');
+        var deleteForm = deleteModal.querySelector('#deleteForm');
+
+        animeTitleElement.textContent = favoriteTitle;
+        deleteForm.action = '/favorites/' + favoriteId;
+    });
+});
+</script>
 
 <style>
     .anime-card:hover {
