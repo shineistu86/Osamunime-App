@@ -28,20 +28,29 @@ class JikanApiService
 
             if ($response->successful()) {
                 $data = $response->json();
-                return $data['data'] ?? [];
+                return [
+                    'data' => $data['data'] ?? [],
+                    'pagination' => $data['pagination'] ?? null
+                ];
             } else {
                 \Log::error('Jikan API Error - getTopAnime', [
                     'status' => $response->status(),
                     'message' => $response->body()
                 ]);
-                return [];
+                return [
+                    'data' => [],
+                    'pagination' => null
+                ];
             }
         } catch (\Exception $e) {
             \Log::error('Jikan API Exception - getTopAnime', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-            return [];
+            return [
+                'data' => [],
+                'pagination' => null
+            ];
         }
     }
 
@@ -55,21 +64,33 @@ class JikanApiService
     public function searchAnime(string $keyword, int $page = 1): array
     {
         try {
-            $response = Http::timeout(30)->get("{$this->baseUrl}/anime", [
-                'q' => $keyword,
+            $params = [
                 'page' => $page,
-            ]);
+            ];
+
+            // Only add the query parameter if keyword is not empty
+            if (!empty($keyword)) {
+                $params['q'] = $keyword;
+            }
+
+            $response = Http::timeout(30)->get("{$this->baseUrl}/anime", $params);
 
             if ($response->successful()) {
                 $data = $response->json();
-                return $data['data'] ?? [];
+                return [
+                    'data' => $data['data'] ?? [],
+                    'pagination' => $data['pagination'] ?? null
+                ];
             } else {
                 \Log::error('Jikan API Error - searchAnime', [
                     'status' => $response->status(),
                     'message' => $response->body(),
                     'keyword' => $keyword
                 ]);
-                return [];
+                return [
+                    'data' => [],
+                    'pagination' => null
+                ];
             }
         } catch (\Exception $e) {
             \Log::error('Jikan API Exception - searchAnime', [
@@ -77,7 +98,10 @@ class JikanApiService
                 'keyword' => $keyword,
                 'trace' => $e->getTraceAsString()
             ]);
-            return [];
+            return [
+                'data' => [],
+                'pagination' => null
+            ];
         }
     }
 
@@ -110,6 +134,51 @@ class JikanApiService
                 'trace' => $e->getTraceAsString()
             ]);
             return null;
+        }
+    }
+
+    /**
+     * Get anime by genre from Jikan API
+     *
+     * @param int $genreId
+     * @param int $page
+     * @return array
+     */
+    public function getAnimeByGenre(int $genreId, int $page = 1): array
+    {
+        try {
+            $response = Http::timeout(30)->get("{$this->baseUrl}/anime", [
+                'genre' => $genreId,
+                'page' => $page,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                return [
+                    'data' => $data['data'] ?? [],
+                    'pagination' => $data['pagination'] ?? null
+                ];
+            } else {
+                \Log::error('Jikan API Error - getAnimeByGenre', [
+                    'status' => $response->status(),
+                    'message' => $response->body(),
+                    'genreId' => $genreId
+                ]);
+                return [
+                    'data' => [],
+                    'pagination' => null
+                ];
+            }
+        } catch (\Exception $e) {
+            \Log::error('Jikan API Exception - getAnimeByGenre', [
+                'error' => $e->getMessage(),
+                'genreId' => $genreId,
+                'trace' => $e->getTraceAsString()
+            ]);
+            return [
+                'data' => [],
+                'pagination' => null
+            ];
         }
     }
 }

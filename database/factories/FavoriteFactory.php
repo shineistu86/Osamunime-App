@@ -22,6 +22,8 @@ class FavoriteFactory extends Factory
             'title' => $this->faker->sentence,
             'image_url' => $this->faker->imageUrl,
             'score' => $this->faker->randomFloat(1, 0, 10),
+            'rating' => $this->faker->optional()->numberBetween(1, 10),
+            'review' => $this->faker->optional()->paragraph,
             'status' => $this->faker->randomElement(['Watching', 'Completed', 'Plan to Watch']),
             'notes' => $this->faker->optional()->paragraph,
             'created_at' => now(),

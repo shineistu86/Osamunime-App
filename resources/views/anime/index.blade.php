@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card border-0 shadow">
                 <div class="card-header bg-primary text-white text-center py-3">
-                    <h1 class="mb-0"><i class="fas fa-fire text-warning me-2"></i>{{ __('Top Anime') }}</h1>
-                    <p class="mb-0 opacity-75">Discover the most popular anime series</p>
+                    <h1 class="mb-0"><i class="fas fa-fire text-warning me-2"></i>{{ __('Anime Populer') }}</h1>
+                    <p class="mb-0 opacity-75">Temukan serial anime paling populer saat ini</p>
                 </div>
 
                 <div class="card-body">
@@ -77,7 +77,7 @@
 
                     @if(!empty($animes))
                         <div class="d-flex justify-content-center mt-4">
-                            {{-- Pagination would go here --}}
+                            @include('partials.pagination')
                         </div>
                     @endif
                 </div>

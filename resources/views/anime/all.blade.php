@@ -5,33 +5,26 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-0 shadow">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h1 class="mb-0">
-                        @if(!empty($keyword))
-                            <i class="fas fa-search text-warning me-2"></i>{{ __('Search Results for: ') . $keyword }}
-                        @else
-                            <i class="fas fa-fire text-warning me-2"></i>{{ __('Top Anime') }}
-                        @endif
-                    </h1>
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h1 class="mb-0"><i class="fas fa-list text-warning me-2"></i>Semua Anime</h1>
+                    <p class="mb-0 opacity-75">Daftar lengkap semua anime yang tersedia</p>
                 </div>
 
                 <div class="card-body">
-                    <form class="mb-4" action="{{ route('anime.search') }}" method="GET">
-                        <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" name="q" value="{{ $keyword ?? '' }}" placeholder="Search anime...">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search me-1"></i> Search
-                            </button>
+                    @if(session('warning'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ session('warning') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    </form>
+                    @endif
 
                     <div class="row g-3 g-md-4">
                         @forelse($animes as $anime)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                                 <div class="card h-100 shadow-sm anime-card">
                                     <div class="position-relative">
-                                        <img src="{{ $anime['images']['jpg']['image_url'] ?? 'https://via.placeholder.com/225x300' }}" class="card-img-top" alt="{{ $anime['title'] }}" style="height: 250px; object-fit: cover;" loading="lazy">
-                                        @if($anime['score'])
+                                        <img src="{{ $anime['images']['jpg']['image_url'] ?? 'https://placehold.co/300x400?text=No+Image' }}" class="card-img-top" alt="{{ $anime['title'] }}" style="height: 250px; object-fit: cover;" loading="lazy">
+                                        @if(isset($anime['score']) && $anime['score'])
                                             <div class="position-absolute top-0 end-0 m-2">
                                                 <span class="badge bg-warning text-dark">
                                                     <i class="fas fa-star me-1"></i>{{ $anime['score'] }}
@@ -52,20 +45,19 @@
                                             </a>
 
                                             @auth
-                                                <form class="mt-2" action="{{ route('favorites.store') }}" method="POST">
+                                                <form action="{{ route('favorites.store') }}" method="POST" class="mt-2">
                                                     @csrf
                                                     <input type="hidden" name="anime_id" value="{{ $anime['mal_id'] }}">
                                                     <input type="hidden" name="title" value="{{ $anime['title'] }}">
                                                     <input type="hidden" name="image_url" value="{{ $anime['images']['jpg']['image_url'] }}">
-                                                    <input type="hidden" name="score" value="{{ $anime['score'] }}">
-                                                    <input type="hidden" name="status" value="Plan to Watch">
+                                                    <input type="hidden" name="score" value="{{ $anime['score'] ?? null }}">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                                                        <i class="fas fa-heart me-1"></i> Favorite
+                                                        <i class="fas fa-heart me-1"></i> Favorit
                                                     </button>
                                                 </form>
                                             @else
                                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-                                                    <i class="fas fa-heart me-1"></i> Login
+                                                    <i class="fas fa-heart me-1"></i> Favorit
                                                 </a>
                                             @endauth
                                         </div>
@@ -75,22 +67,17 @@
                         @empty
                             <div class="col-12">
                                 <div class="text-center py-5">
-                                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                                    <h4 class="text-muted">No anime found for "{{ $keyword }}"</h4>
-                                    <p class="text-muted">Try adjusting your search criteria</p>
-                                    <a href="{{ route('anime.index') }}" class="btn btn-primary">
-                                        <i class="fas fa-arrow-left me-1"></i> Back to Top Anime
-                                    </a>
+                                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                    <h4>Tidak Ada Anime Ditemukan</h4>
+                                    <p class="text-muted">Anime yang Anda cari tidak ditemukan.</p>
                                 </div>
                             </div>
                         @endforelse
                     </div>
 
-                    @if(!empty($animes))
-                        <div class="d-flex justify-content-center mt-4">
-                            @include('partials.pagination')
-                        </div>
-                    @endif
+                    <div class="d-flex justify-content-center mt-4">
+                        @include('partials.pagination')
+                    </div>
                 </div>
             </div>
         </div>

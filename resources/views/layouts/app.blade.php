@@ -43,7 +43,6 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                    <img src="{{ asset('osamunime-icon.svg') }}" alt="Osamunime Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
                     {{ config('app.name', 'Osamunime') }}
                 </a>
 
@@ -58,14 +57,19 @@
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('anime.index') }}">Anime List</a>
+                            <a class="nav-link" href="{{ route('anime.genre.list') }}">Genre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('anime.all') }}">Semua Anime</a>
                         </li>
                     </ul>
 
                     <!-- Search Form -->
                     <form class="d-flex me-3" action="{{ route('anime.search') }}" method="GET">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Search anime..." aria-label="Search" value="{{ request('q') }}">
-                        <button class="btn btn-outline-light" type="submit">Search</button>
+                        <div class="input-group">
+                            <input class="form-control" type="search" name="q" placeholder="Search anime..." aria-label="Search" value="{{ request('q') }}">
+                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        </div>
                     </form>
 
                     <!-- Right Side Of Navbar -->

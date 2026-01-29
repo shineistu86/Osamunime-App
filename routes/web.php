@@ -27,5 +27,8 @@ Route::middleware(['auth'])->group(function () {
 
 // Public routes for anime
 Route::get('/anime', [AnimeController::class, 'index'])->name('anime.index');
+Route::get('/anime/genre', [AnimeController::class, 'genreList'])->name('anime.genre.list');
+Route::get('/anime/genre/{id}', [AnimeController::class, 'byGenre'])->name('anime.by.genre');
+Route::get('/anime/all', [AnimeController::class, 'all'])->name('anime.all');
 Route::get('/anime/search', [AnimeController::class, 'search'])->name('anime.search');
 Route::get('/anime/{id}', [AnimeController::class, 'show'])->name('anime.show');

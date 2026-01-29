@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Favorite;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class AnimeApiServiceTest extends TestCase
 {
@@ -91,8 +92,13 @@ class AnimeApiServiceTest extends TestCase
     {
         $user = User::factory()->create();
 
+        // Get a session to establish CSRF token
+        $this->actingAs($user);
+        $response = $this->get('/favorites/create'); // Access a page to initialize session
+
         $response = $this->actingAs($user)
             ->post('/favorites', [
+                '_token' => session('_token'), // Use the session token
                 'anime_id' => 1,
                 'title' => 'Test Anime',
                 'image_url' => 'https://example.com/image.jpg',
@@ -117,8 +123,13 @@ class AnimeApiServiceTest extends TestCase
         $user = User::factory()->create();
         $favorite = Favorite::factory()->create(['user_id' => $user->id]);
 
+        // Get a session to establish CSRF token
+        $this->actingAs($user);
+        $response = $this->get("/favorites/{$favorite->id}/edit"); // Access a page to initialize session
+
         $response = $this->actingAs($user)
             ->put("/favorites/{$favorite->id}", [
+                '_token' => session('_token'), // Use the session token
                 'score' => 9.0,
                 'status' => 'Watching',
                 'notes' => 'Updated notes'
@@ -141,8 +152,15 @@ class AnimeApiServiceTest extends TestCase
         $user = User::factory()->create();
         $favorite = Favorite::factory()->create(['user_id' => $user->id]);
 
+        // Get a session to establish CSRF token
+        $this->actingAs($user);
+        $response = $this->get('/favorites'); // Access a page to initialize session
+
         $response = $this->actingAs($user)
-            ->delete("/favorites/{$favorite->id}");
+            ->post("/favorites/{$favorite->id}", [
+                '_token' => session('_token'), // Use the session token
+                '_method' => 'DELETE' // Use POST with _method for delete
+            ]);
 
         $response->assertRedirect();
         $this->assertDatabaseMissing('favorites', [
