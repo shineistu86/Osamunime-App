@@ -117,13 +117,25 @@ The application uses the following main tables:
 For production deployment, configure these environment variables:
 - `APP_ENV=production`
 - `APP_DEBUG=false`
-- `DB_CONNECTION=mysql` (or pgsql for PostgreSQL)
-- `DB_HOST=your_db_host`
-- `DB_PORT=your_db_port`
-- `DB_DATABASE=your_db_name`
-- `DB_USERNAME=your_db_username`
-- `DB_PASSWORD=your_db_password`
+- `DB_CONNECTION=sqlite` (for local development) or `external_mysql` (for deployment to serverless platforms)
+- `DB_HOST=your_db_host` (when using external database)
+- `DB_PORT=your_db_port` (when using external database)
+- `DB_DATABASE=your_db_name` (when using external database)
+- `DB_USERNAME=your_db_username` (when using external database)
+- `DB_PASSWORD=your_db_password` (when using external database)
 - `JIKAN_API_BASE_URL=https://api.jikan.moe/v4`
+
+### External Database Configuration (for Serverless Platforms like Vercel)
+
+When deploying to serverless platforms, you must use an external database because SQLite files are ephemeral and will be lost when the serverless function is not active.
+
+For external MySQL database, configure these additional variables:
+- `EXTERNAL_DB_HOST` - Host dari database MySQL eksternal
+- `EXTERNAL_DB_PORT` - Port dari database MySQL (default: 3306)
+- `EXTERNAL_DB_DATABASE` - Nama database
+- `EXTERNAL_DB_USERNAME` - Username untuk koneksi ke database
+- `EXTERNAL_DB_PASSWORD` - Password untuk koneksi ke database
+- `EXTERNAL_MYSQL_ATTR_SSL_CA` - Path ke file SSL certificate authority jika database memerlukan koneksi SSL
 
 ## Testing
 
