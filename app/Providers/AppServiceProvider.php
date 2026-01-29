@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Force database connection to MySQL
+        if (config('database.default') !== 'mysql') {
+            config(['database.default' => 'mysql']);
+        }
     }
 }

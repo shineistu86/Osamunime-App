@@ -9,7 +9,7 @@
 
 -   **Backend:** Laravel 12.x (PHP Framework)
 -   **Frontend:** Bootstrap 5, JavaScript
--   **Database:** SQLite (lokal) / MySQL (produksi eksternal)
+-   **Database:** MySQL (lokal & produksi)
 -   **API:** Jikan API (untuk data anime)
 -   **Build Tool:** Vite
 -   **Server:** Apache/Nginx
@@ -22,7 +22,7 @@
 -   PHP 8.2 atau lebih tinggi
 -   Composer
 -   Node.js dan npm
--   Database (SQLite untuk lokal, MySQL untuk produksi)
+-   MySQL (untuk lokal dan produksi)
 
 ### Instalasi
 
@@ -67,6 +67,8 @@
     ```bash
     php artisan migrate
     ```
+
+8. Pastikan database MySQL aktif dan konfigurasi telah disesuaikan. Aplikasi akan membuat tabel-tabel yang diperlukan di database `osamunime_db`.
 
 ### Menjalankan Aplikasi
 
@@ -126,6 +128,16 @@
 ## Kontribusi
 
 Kontribusi sangat diterima! Silakan fork repository ini dan buat pull request untuk perubahan yang ingin ditambahkan.
+
+## Catatan Penting untuk Penggunaan Aplikasi
+
+Namun, ada beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
+
+1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan MySQL sebagai database utama. Database yang digunakan bernama `osamunime_db` dan dapat diakses melalui phpMyAdmin.
+
+2. **API key** - Aplikasi ini menggunakan Jikan API untuk mengambil data anime. Umumnya Jikan API tidak memerlukan API key untuk penggunaan dasar, namun pembatasan rate limit mungkin berlaku.
+
+3. **Koneksi internet** - Karena aplikasi mengambil data dari API eksternal, koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap.
 
 ## Lisensi
 
