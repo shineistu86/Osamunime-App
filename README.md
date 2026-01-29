@@ -42,7 +42,7 @@
 3. Copy file environment dan atur konfigurasi:
 
     ```bash
-    cp .env.example .env
+    copy .env.example .env
     ```
 
 4. Generate application key:
@@ -68,7 +68,11 @@
     php artisan migrate
     ```
 
-8. Pastikan database MySQL aktif dan konfigurasi telah disesuaikan. Aplikasi akan membuat tabel-tabel yang diperlukan di database `osamunime_db`.
+8. Konfigurasi database MySQL di file .env (pastikan DB_CONNECTION=mysql, DB_HOST=127.0.0.1, DB_PORT=3306, DB_DATABASE=osamunime_db, DB_USERNAME=root, dan DB_PASSWORD sesuai dengan pengaturan MySQL Anda).
+
+9. Pastikan layanan MySQL aktif (misalnya melalui Laragon/XAMPP) sebelum menjalankan migrasi.
+
+10. Jalankan migrasi database untuk membuat tabel-tabel yang diperlukan di database `osamunime_db`.
 
 ### Menjalankan Aplikasi
 
@@ -82,13 +86,13 @@
 
 ### Untuk Development (dengan hot reload)
 
-1. Jalankan server Laravel di terminal pertama:
+1. Buka terminal/command prompt pertama dan jalankan server Laravel:
 
     ```bash
     php artisan serve
     ```
 
-2. Jalankan Vite watcher di terminal kedua:
+2. Buka terminal/command prompt kedua dan jalankan Vite watcher untuk hot reload CSS/JS:
     ```bash
     npm run dev
     ```
@@ -139,6 +143,14 @@ Namun, ada beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sep
 
 3. **Koneksi internet** - Karena aplikasi mengambil data dari API eksternal, koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap.
 
+4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat mengakses database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
+
 ## Lisensi
 
 Proyek ini dilisensikan di bawah lisensi MIT.
+
+## Akses Aplikasi
+
+- **Aplikasi Web**: `http://localhost:8000`
+- **Database (phpMyAdmin)**: `http://localhost/phpmyadmin` (database: `osamunime_db`)
+- **API Jikan**: Otomatis digunakan untuk mengambil data anime dari `https://api.jikan.moe/v4`
