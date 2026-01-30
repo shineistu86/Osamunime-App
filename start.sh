@@ -46,6 +46,18 @@ npm run build
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
+
+# Set DB_CONNECTION to pgsql if POSTGRES_HOST is available
+if [ ! -z "$POSTGRES_HOST" ]; then
+    export DB_CONNECTION=pgsql
+    export DB_HOST=$POSTGRES_HOST
+    export DB_PORT=$POSTGRES_PORT
+    export DB_DATABASE=$POSTGRES_DB
+    export DB_USERNAME=$POSTGRES_USER
+    export DB_PASSWORD=$POSTGRES_PASSWORD
+fi
+
+# Re-cache configuration after setting environment variables
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
