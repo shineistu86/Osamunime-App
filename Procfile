@@ -1,1 +1,1 @@
-web: php artisan config:clear && php artisan optimize:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+web: chmod +x start.sh && ./start.sh
