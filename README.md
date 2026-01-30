@@ -157,6 +157,27 @@ Proyek ini dilisensikan di bawah lisensi MIT.
 
 ## Deployment
 
+### Ke Render
+
+Aplikasi ini dapat dideploy ke Render dengan mengikuti langkah-langkah berikut:
+
+1. **Persiapan Awal**
+   - Pastikan aplikasi berjalan dengan baik di lokal
+   - Siapkan akun Render.com
+
+2. **Konfigurasi Lingkungan Render**
+   - File render.yaml: Sudah disertakan dalam proyek ini
+   - Build Command: `composer install && npm install && npm run build && php artisan config:cache`
+   - Start Command: `heroku-php-apache2 public/`
+
+3. **Pengaturan Basis Data**
+   - Render menyediakan layanan database PostgreSQL atau MySQL
+   - Konfigurasi variabel lingkungan: DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+
+4. **Proses Deployment**
+   - Hubungkan repository GitHub ke Render
+   - Render akan otomatis mendeteksi file konfigurasi dan melakukan build
+
 ### Ke Heroku
 
 Aplikasi ini dapat dideploy ke Heroku dengan mengikuti langkah-langkah berikut:
@@ -239,5 +260,22 @@ Aplikasi ini dapat dideploy ke Heroku dengan mengikuti langkah-langkah berikut:
    ```bash
    heroku open
    ```
+
+### Langkah-langkah Deployment ke Render
+
+1. Buka akun Render.com
+2. Klik "New +" dan pilih "Web Service"
+3. Pilih repository GitHub Anda (Osamunime-App)
+4. Gunakan konfigurasi berikut:
+   - Environment: PHP
+   - Branch: main
+   - Build Command: `composer install && npm install && npm run build && php artisan config:cache`
+   - Start Command: `heroku-php-apache2 public/`
+5. Tambahkan variabel lingkungan:
+   - APP_ENV = production
+   - APP_DEBUG = false
+   - DB_CONNECTION = mysql (atau postgresql tergantung database yang dipilih)
+   - Dan variabel database lainnya (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+6. Klik "Create Web Service"
 
 Catatan: Jika Anda menggunakan branch 'main' sebagai default, ganti 'master' dengan 'main' dalam perintah push.

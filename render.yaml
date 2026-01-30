@@ -1,0 +1,22 @@
+services:
+- type: web
+  name: osamunime-app
+  env: php
+  plan: free
+  buildCommand: |
+    composer install
+    npm install
+    npm run build
+    php artisan config:cache
+  startCommand: "heroku-php-apache2 public/"
+  envVars:
+  - key: APP_ENV
+    value: production
+  - key: APP_DEBUG
+    value: false
+  - key: DB_CONNECTION
+    value: mysql
+  databases:
+  - name: osamunime-db
+    plan: free
+    region: singapore
