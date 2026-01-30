@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    // App\Providers\DatabaseServiceProvider::class, // Commented out as database config is handled by env vars
+    App\Providers\DatabaseServiceProvider::class,
 ];
