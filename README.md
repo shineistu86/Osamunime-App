@@ -9,10 +9,10 @@
 
 -   **Backend:** Laravel 12.x (PHP Framework)
 -   **Frontend:** Bootstrap 5, JavaScript
--   **Database:** MySQL (lokal & produksi)
+-   **Database:** SQLite (lokal) / MySQL (opsional)
 -   **API:** Jikan API (untuk data anime)
 -   **Build Tool:** Vite
--   **Server:** Apache/Nginx
+-   **Server:** PHP Built-in Server
 -   **Bahasa Pemrograman:** PHP 8.2+, JavaScript
 
 ## Cara Instalasi dan Menjalankan Aplikasi
@@ -22,7 +22,6 @@
 -   PHP 8.2 atau lebih tinggi
 -   Composer
 -   Node.js dan npm
--   MySQL (untuk lokal dan produksi)
 
 ### Instalasi
 
@@ -68,11 +67,12 @@
     php artisan migrate
     ```
 
-8. Konfigurasi database MySQL di file .env (pastikan DB_CONNECTION=mysql, DB_HOST=127.0.0.1, DB_PORT=3306, DB_DATABASE=osamunime_db, DB_USERNAME=root, dan DB_PASSWORD sesuai dengan pengaturan MySQL Anda).
+8. Konfigurasi database SQLite di file .env (pastikan DB_CONNECTION=sqlite, dan hapus konfigurasi DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD atau sesuaikan dengan pengaturan lokal Anda).
 
-9. Pastikan layanan MySQL aktif (misalnya melalui Laragon/XAMPP) sebelum menjalankan migrasi.
-
-10. Jalankan migrasi database untuk membuat tabel-tabel yang diperlukan di database `osamunime_db`.
+9. Buat file database SQLite (jika belum ada):
+    ```bash
+    touch database/database.sqlite
+    ```
 
 ### Menjalankan Aplikasi
 
@@ -137,13 +137,13 @@ Kontribusi sangat diterima! Silakan fork repository ini dan buat pull request un
 
 Namun, ada beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
 
-1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan MySQL sebagai database utama. Database yang digunakan bernama `osamunime_db` dan dapat diakses melalui phpMyAdmin.
+1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan SQLite sebagai database utama. File database disimpan sebagai `database/database.sqlite` di dalam folder proyek.
 
 2. **API key** - Aplikasi ini menggunakan Jikan API untuk mengambil data anime. Umumnya Jikan API tidak memerlukan API key untuk penggunaan dasar, namun pembatasan rate limit mungkin berlaku.
 
 3. **Koneksi internet** - Karena aplikasi mengambil data dari API eksternal, koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap.
 
-4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat mengakses database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
+4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat membuka file `database/database.sqlite` menggunakan aplikasi SQLite browser seperti DB Browser for SQLite.
 
 ## Lisensi
 
@@ -152,5 +152,9 @@ Proyek ini dilisensikan di bawah lisensi MIT.
 ## Akses Aplikasi
 
 - **Aplikasi Web**: `http://localhost:8000`
-- **Database (phpMyAdmin)**: `http://localhost/phpmyadmin` (database: `osamunime_db`)
+- **Database (SQLite)**: `database/database.sqlite` (di dalam folder proyek)
 - **API Jikan**: Otomatis digunakan untuk mengambil data anime dari `https://api.jikan.moe/v4`
+
+## Deployment
+
+Aplikasi ini saat ini dikonfigurasi untuk penggunaan lokal. Untuk deployment ke platform hosting produksi, konfigurasi database perlu disesuaikan dengan lingkungan produksi (misalnya MySQL).
