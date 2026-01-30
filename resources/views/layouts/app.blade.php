@@ -65,10 +65,10 @@
                     </ul>
 
                     <!-- Dark Mode Toggle -->
-                    <ul class="navbar-nav me-3">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <button class="btn btn-outline-light" id="theme-toggle" aria-label="Toggle dark mode">
-                                <i class="fas fa-moon" id="theme-icon"></i>
+                                <i class="fas fa-sun" id="theme-icon"></i>
                             </button>
                         </li>
                     </ul>
@@ -200,25 +200,27 @@
             // Apply the theme
             if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
                 body.setAttribute('data-theme', 'dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                body.removeAttribute('data-theme');
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
             }
 
             // Toggle theme when button is clicked
             themeToggle.addEventListener('click', function() {
                 if (body.getAttribute('data-theme') === 'dark') {
+                    // Switch to light mode
                     body.removeAttribute('data-theme');
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    // Switch to dark mode
+                    body.setAttribute('data-theme', 'dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
                     localStorage.setItem('theme', 'dark');
                 }
             });
