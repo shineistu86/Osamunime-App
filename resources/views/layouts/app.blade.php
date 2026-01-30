@@ -201,13 +201,11 @@
             if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
                 body.setAttribute('data-theme', 'dark');
                 // When dark mode is active, show moon icon
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+                themeIcon.className = 'fas fa-moon';
             } else {
                 body.removeAttribute('data-theme');
                 // When light mode is active, show sun icon
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+                themeIcon.className = 'fas fa-sun';
             }
 
             // Toggle theme when button is clicked
@@ -216,15 +214,13 @@
                     // Switch to light mode
                     body.removeAttribute('data-theme');
                     // Show sun icon for light mode
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
+                    themeIcon.className = 'fas fa-sun';
                     localStorage.setItem('theme', 'light');
                 } else {
                     // Switch to dark mode
                     body.setAttribute('data-theme', 'dark');
                     // Show moon icon for dark mode
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
+                    themeIcon.className = 'fas fa-moon';
                     localStorage.setItem('theme', 'dark');
                 }
             });
