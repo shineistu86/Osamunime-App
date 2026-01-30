@@ -157,4 +157,87 @@ Proyek ini dilisensikan di bawah lisensi MIT.
 
 ## Deployment
 
-Aplikasi ini saat ini dikonfigurasi untuk penggunaan lokal. Untuk deployment ke platform hosting produksi, konfigurasi database perlu disesuaikan dengan lingkungan produksi.
+### Ke Heroku
+
+Aplikasi ini dapat dideploy ke Heroku dengan mengikuti langkah-langkah berikut:
+
+1. **Persiapan Awal (Local Development)**
+   - Kloning Proyek: Mengunduh kode sumber aplikasi Laravel dari GitHub.
+   - Akses Terminal: Menggunakan terminal untuk menjalankan perintah Heroku CLI dan Git.
+   - Login Heroku: Melakukan autentikasi akun melalui perintah `heroku login`.
+
+2. **Konfigurasi Lingkungan Heroku**
+   - Pembuatan Aplikasi: Membuat wadah aplikasi baru di Heroku menggunakan perintah `heroku create`.
+   - File Procfile: Sudah disertakan dalam proyek ini.
+   - Pengaturan APP_KEY: Menghasilkan dan mengatur kunci aplikasi Laravel di Heroku agar aplikasi dapat berjalan dengan aman.
+
+3. **Pengaturan Basis Data (MySQL)**
+   - Add-on ClearDB: Mengintegrasikan basis data MySQL menggunakan add-on ClearDB MySQL.
+   - Konfigurasi Variabel Lingkungan: Mengambil URL basis data dari Heroku dan memecahnya menjadi variabel-variabel seperti DB_HOST, DB_DATABASE, DB_USERNAME, dan DB_PASSWORD.
+   - Migrasi Data: Menjalankan perintah `php artisan migrate` langsung di server Heroku untuk membuat tabel-tabel yang diperlukan.
+
+4. **Proses Deployment**
+   - Git Workflow: Menambahkan perubahan (git add), melakukan commit (git commit), dan mendorong kode ke server Heroku (git push heroku master).
+   - Instalasi Dependensi: Heroku secara otomatis mendeteksi aplikasi PHP dan menginstal paket-paket yang diperlukan melalui Composer.
+
+5. **Verifikasi Akhir**
+   - Membuka Aplikasi: Mengakses aplikasi yang sudah live melalui URL Heroku.
+   - Registrasi Akun: Mencoba fitur registrasi pada aplikasi Laravel yang sudah ter-deploy untuk memastikan koneksi basis data berjalan lancar.
+
+### Langkah-langkah Deployment ke Heroku
+
+1. Login ke Heroku:
+   ```bash
+   heroku login
+   ```
+
+2. Buat aplikasi baru:
+   ```bash
+   heroku create nama-aplikasi-anda
+   ```
+
+3. Tambahkan add-on ClearDB MySQL:
+   ```bash
+   heroku addons:create cleardb:ignite
+   ```
+
+4. Ambil URL database:
+   ```bash
+   heroku config | grep CLEARDB_DATABASE_URL
+   ```
+
+5. Set konfigurasi database di Heroku:
+   ```bash
+   heroku config:set DB_CONNECTION=mysql
+   heroku config:set DB_HOST=hostname_dari_cleardb
+   heroku config:set DB_DATABASE=nama_db_dari_cleardb
+   heroku config:set DB_USERNAME=username_dari_cleardb
+   heroku config:set DB_PASSWORD=password_dari_cleardb
+   ```
+
+6. Generate dan set APP_KEY:
+   ```bash
+   php artisan key:generate --show
+   heroku config:set APP_KEY=isi_key_yang_muncul_tadi
+   heroku config:set APP_ENV=production
+   heroku config:set APP_DEBUG=false
+   ```
+
+7. Push proyek ke Heroku:
+   ```bash
+   git add .
+   git commit -m "Siap untuk deploy ke Heroku"
+   git push heroku master
+   ```
+
+8. Jalankan migrasi database di server:
+   ```bash
+   heroku run php artisan migrate --force
+   ```
+
+9. Buka aplikasi:
+   ```bash
+   heroku open
+   ```
+
+Catatan: Jika Anda menggunakan branch 'main' sebagai default, ganti 'master' dengan 'main' dalam perintah push.
