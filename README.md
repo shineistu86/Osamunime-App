@@ -9,7 +9,7 @@
 
 -   **Backend:** Laravel 12.x (PHP Framework)
 -   **Frontend:** Bootstrap 5, JavaScript
--   **Database:** SQLite (lokal) / MySQL (opsional)
+-   **Database:** MySQL (lokal)
 -   **API:** Jikan API (untuk data anime)
 -   **Build Tool:** Vite
 -   **Server:** PHP Built-in Server
@@ -22,6 +22,7 @@
 -   PHP 8.2 atau lebih tinggi
 -   Composer
 -   Node.js dan npm
+-   MySQL (melalui Laragon/XAMPP)
 
 ### Instalasi
 
@@ -62,16 +63,13 @@
     npm run build
     ```
 
-7. Jalankan migrasi database:
+7. Pastikan MySQL server (Laragon/XAMPP) sedang berjalan
+
+8. Konfigurasi database MySQL di file .env (pastikan DB_CONNECTION=mysql, DB_HOST=127.0.0.1, DB_PORT=3306, DB_DATABASE=osamunime_db, DB_USERNAME=root, dan DB_PASSWORD sesuai dengan pengaturan MySQL Anda).
+
+9. Jalankan migrasi database:
     ```bash
     php artisan migrate
-    ```
-
-8. Konfigurasi database SQLite di file .env (pastikan DB_CONNECTION=sqlite, dan hapus konfigurasi DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD atau sesuaikan dengan pengaturan lokal Anda).
-
-9. Buat file database SQLite (jika belum ada):
-    ```bash
-    touch database/database.sqlite
     ```
 
 ### Menjalankan Aplikasi
@@ -135,15 +133,15 @@ Kontribusi sangat diterima! Silakan fork repository ini dan buat pull request un
 
 ## Catatan Penting untuk Penggunaan Aplikasi
 
-Namun, ada beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
+Beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
 
-1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan MySQL sebagai database utama. Database yang digunakan bernama `osamunime_db` dan dapat diakses melalui phpMyAdmin.
+1. **Database lokal** - Aplikasi ini menggunakan MySQL sebagai database utama. Database yang digunakan bernama `osamunime_db` dan dapat diakses melalui phpMyAdmin.
 
-2. **API key** - Aplikasi ini menggunakan Jikan API untuk mengambil data anime. Umumnya Jikan API tidak memerlukan API key untuk penggunaan dasar, namun pembatasan rate limit mungkin berlaku.
+2. **API Jikan** - Aplikasi ini menggunakan Jikan API untuk mengambil data anime. Tidak memerlukan API key, namun tergantung ketersediaan API.
 
-3. **Koneksi internet** - Karena aplikasi mengambil data dari API eksternal, koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap.
+3. **Koneksi internet** - Koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap dari API.
 
-4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat mengakses database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
+4. **Akses database** - Data pengguna, favorit, dan tag dapat dilihat langsung di database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
 
 ## Lisensi
 
@@ -157,125 +155,4 @@ Proyek ini dilisensikan di bawah lisensi MIT.
 
 ## Deployment
 
-### Ke Render
-
-Aplikasi ini dapat dideploy ke Render dengan mengikuti langkah-langkah berikut:
-
-1. **Persiapan Awal**
-   - Pastikan aplikasi berjalan dengan baik di lokal
-   - Siapkan akun Render.com
-
-2. **Konfigurasi Lingkungan Render**
-   - File render.yaml: Sudah disertakan dalam proyek ini
-   - Build Command: `composer install && npm install && npm run build && php artisan config:cache`
-   - Start Command: `heroku-php-apache2 public/`
-
-3. **Pengaturan Basis Data**
-   - Render menyediakan layanan database PostgreSQL atau MySQL
-   - Konfigurasi variabel lingkungan: DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
-
-4. **Proses Deployment**
-   - Hubungkan repository GitHub ke Render
-   - Render akan otomatis mendeteksi file konfigurasi dan melakukan build
-
-### Ke Heroku
-
-Aplikasi ini dapat dideploy ke Heroku dengan mengikuti langkah-langkah berikut:
-
-1. **Persiapan Awal (Local Development)**
-   - Kloning Proyek: Mengunduh kode sumber aplikasi Laravel dari GitHub.
-   - Akses Terminal: Menggunakan terminal untuk menjalankan perintah Heroku CLI dan Git.
-   - Login Heroku: Melakukan autentikasi akun melalui perintah `heroku login`.
-
-2. **Konfigurasi Lingkungan Heroku**
-   - Pembuatan Aplikasi: Membuat wadah aplikasi baru di Heroku menggunakan perintah `heroku create`.
-   - File Procfile: Sudah disertakan dalam proyek ini.
-   - Pengaturan APP_KEY: Menghasilkan dan mengatur kunci aplikasi Laravel di Heroku agar aplikasi dapat berjalan dengan aman.
-
-3. **Pengaturan Basis Data (MySQL)**
-   - Add-on ClearDB: Mengintegrasikan basis data MySQL menggunakan add-on ClearDB MySQL.
-   - Konfigurasi Variabel Lingkungan: Mengambil URL basis data dari Heroku dan memecahnya menjadi variabel-variabel seperti DB_HOST, DB_DATABASE, DB_USERNAME, dan DB_PASSWORD.
-   - Migrasi Data: Menjalankan perintah `php artisan migrate` langsung di server Heroku untuk membuat tabel-tabel yang diperlukan.
-
-4. **Proses Deployment**
-   - Git Workflow: Menambahkan perubahan (git add), melakukan commit (git commit), dan mendorong kode ke server Heroku (git push heroku master).
-   - Instalasi Dependensi: Heroku secara otomatis mendeteksi aplikasi PHP dan menginstal paket-paket yang diperlukan melalui Composer.
-
-5. **Verifikasi Akhir**
-   - Membuka Aplikasi: Mengakses aplikasi yang sudah live melalui URL Heroku.
-   - Registrasi Akun: Mencoba fitur registrasi pada aplikasi Laravel yang sudah ter-deploy untuk memastikan koneksi basis data berjalan lancar.
-
-### Langkah-langkah Deployment ke Heroku
-
-1. Login ke Heroku:
-   ```bash
-   heroku login
-   ```
-
-2. Buat aplikasi baru:
-   ```bash
-   heroku create nama-aplikasi-anda
-   ```
-
-3. Tambahkan add-on ClearDB MySQL:
-   ```bash
-   heroku addons:create cleardb:ignite
-   ```
-
-4. Ambil URL database:
-   ```bash
-   heroku config | grep CLEARDB_DATABASE_URL
-   ```
-
-5. Set konfigurasi database di Heroku:
-   ```bash
-   heroku config:set DB_CONNECTION=mysql
-   heroku config:set DB_HOST=hostname_dari_cleardb
-   heroku config:set DB_DATABASE=nama_db_dari_cleardb
-   heroku config:set DB_USERNAME=username_dari_cleardb
-   heroku config:set DB_PASSWORD=password_dari_cleardb
-   ```
-
-6. Generate dan set APP_KEY:
-   ```bash
-   php artisan key:generate --show
-   heroku config:set APP_KEY=isi_key_yang_muncul_tadi
-   heroku config:set APP_ENV=production
-   heroku config:set APP_DEBUG=false
-   ```
-
-7. Push proyek ke Heroku:
-   ```bash
-   git add .
-   git commit -m "Siap untuk deploy ke Heroku"
-   git push heroku master
-   ```
-
-8. Jalankan migrasi database di server:
-   ```bash
-   heroku run php artisan migrate --force
-   ```
-
-9. Buka aplikasi:
-   ```bash
-   heroku open
-   ```
-
-### Langkah-langkah Deployment ke Render
-
-1. Buka akun Render.com
-2. Klik "New +" dan pilih "Web Service"
-3. Pilih repository GitHub Anda (Osamunime-App)
-4. Gunakan konfigurasi berikut:
-   - Environment: PHP
-   - Branch: main
-   - Build Command: `composer install && npm install && npm run build && php artisan config:cache`
-   - Start Command: `heroku-php-apache2 public/`
-5. Tambahkan variabel lingkungan:
-   - APP_ENV = production
-   - APP_DEBUG = false
-   - DB_CONNECTION = mysql (atau postgresql tergantung database yang dipilih)
-   - Dan variabel database lainnya (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
-6. Klik "Create Web Service"
-
-Catatan: Jika Anda menggunakan branch 'main' sebagai default, ganti 'master' dengan 'main' dalam perintah push.
+Aplikasi ini saat ini dikonfigurasi untuk penggunaan lokal. Untuk deployment ke platform hosting produksi, konfigurasi database perlu disesuaikan dengan lingkungan produksi.
