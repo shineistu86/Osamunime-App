@@ -17,7 +17,7 @@ class JikanApiService
     }
 
     /**
-     * Get top anime from Jikan API
+     * Mendapatkan anime terpopuler dari API Jikan
      *
      * @param int $page
      * @return array
@@ -26,7 +26,7 @@ class JikanApiService
     {
         if ($this->useCache) {
             $cacheKey = "jikan_top_anime_page_{$page}";
-            $cacheTime = 30; // Cache for 30 minutes
+            $cacheTime = 30; // Simpan di cache selama 30 menit
 
             return Cache::remember($cacheKey, $cacheTime * 60, function() use ($page) {
                 return $this->fetchTopAnime($page);
@@ -37,7 +37,7 @@ class JikanApiService
     }
 
     /**
-     * Internal method to fetch top anime without cache
+     * Metode internal untuk mengambil anime terpopuler tanpa cache
      *
      * @param int $page
      * @return array
@@ -78,7 +78,7 @@ class JikanApiService
     }
 
     /**
-     * Search anime by keyword from Jikan API
+     * Mencari anime berdasarkan kata kunci dari API Jikan
      *
      * @param string $keyword
      * @param int $page
@@ -88,7 +88,7 @@ class JikanApiService
     {
         if ($this->useCache) {
             $cacheKey = "jikan_search_" . md5($keyword) . "_page_{$page}";
-            $cacheTime = 30; // Cache for 30 minutes
+            $cacheTime = 30; // Simpan di cache selama 30 menit
 
             return Cache::remember($cacheKey, $cacheTime * 60, function() use ($keyword, $page) {
                 return $this->fetchSearchAnime($keyword, $page);
@@ -99,7 +99,7 @@ class JikanApiService
     }
 
     /**
-     * Internal method to search anime without cache
+     * Metode internal untuk mencari anime tanpa cache
      *
      * @param string $keyword
      * @param int $page
@@ -112,7 +112,7 @@ class JikanApiService
                 'page' => $page,
             ];
 
-            // Only add the query parameter if keyword is not empty
+            // Hanya tambahkan parameter query jika kata kunci tidak kosong
             if (!empty($keyword)) {
                 $params['q'] = $keyword;
             }
@@ -150,7 +150,7 @@ class JikanApiService
     }
 
     /**
-     * Get anime details by ID from Jikan API
+     * Mendapatkan detail anime berdasarkan ID dari API Jikan
      *
      * @param int $id
      * @return array|null
@@ -159,7 +159,7 @@ class JikanApiService
     {
         if ($this->useCache) {
             $cacheKey = "jikan_anime_{$id}";
-            $cacheTime = 60; // Cache for 60 minutes
+            $cacheTime = 60; // Simpan di cache selama 60 menit
 
             return Cache::remember($cacheKey, $cacheTime * 60, function() use ($id) {
                 return $this->fetchAnimeById($id);
@@ -170,7 +170,7 @@ class JikanApiService
     }
 
     /**
-     * Internal method to fetch anime by ID without cache
+     * Metode internal untuk mengambil anime berdasarkan ID tanpa cache
      *
      * @param int $id
      * @return array|null
@@ -202,7 +202,7 @@ class JikanApiService
     }
 
     /**
-     * Get anime by genre from Jikan API
+     * Mendapatkan anime berdasarkan genre dari API Jikan
      *
      * @param int $genreId
      * @param int $page
@@ -212,7 +212,7 @@ class JikanApiService
     {
         if ($this->useCache) {
             $cacheKey = "jikan_genre_{$genreId}_page_{$page}";
-            $cacheTime = 30; // Cache for 30 minutes
+            $cacheTime = 30; // Simpan di cache selama 30 menit
 
             return Cache::remember($cacheKey, $cacheTime * 60, function() use ($genreId, $page) {
                 return $this->fetchAnimeByGenre($genreId, $page);
@@ -223,7 +223,7 @@ class JikanApiService
     }
 
     /**
-     * Internal method to fetch anime by genre without cache
+     * Metode internal untuk mengambil anime berdasarkan genre tanpa cache
      *
      * @param int $genreId
      * @param int $page

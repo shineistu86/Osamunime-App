@@ -16,7 +16,7 @@ class Tag extends Model
     ];
 
     /**
-     * Get the favorites that belong to this tag
+     * Mendapatkan favorit yang terkait dengan tag ini
      */
     public function favorites(): BelongsToMany
     {

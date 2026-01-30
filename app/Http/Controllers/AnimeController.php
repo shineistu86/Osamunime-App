@@ -15,7 +15,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar anime
      */
     public function index(Request $request)
     {
@@ -34,7 +34,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Display popular anime.
+     * Menampilkan anime populer
      */
     public function popular(Request $request)
     {
@@ -44,35 +44,35 @@ class AnimeController extends Controller
         $pagination = $response['pagination'];
 
         if (empty($animes)) {
-            \Log::warning('No anime data retrieved from API');
-            session()->flash('warning', 'Could not load anime data. Please try again later.');
+            \Log::warning('Tidak ada data anime yang diambil dari API');
+            session()->flash('warning', 'Tidak bisa memuat data anime. Silakan coba lagi nanti.');
         }
 
         return view('anime.popular', compact('animes', 'pagination'));
     }
 
     /**
-     * Display all anime with pagination.
+     * Menampilkan semua anime dengan pagination
      */
     public function all(Request $request)
     {
         $page = $request->input('page', 1);
 
-        // Using Jikan API to get all anime (using empty search to get all)
+        // Menggunakan API Jikan untuk mendapatkan semua anime (menggunakan pencarian kosong untuk mendapatkan semua)
         $response = $this->jikanApiService->searchAnime('', $page);
         $animes = $response['data'] ?? [];
         $pagination = $response['pagination'];
 
         if (empty($animes)) {
-            \Log::warning('No anime data retrieved from API');
-            session()->flash('warning', 'Could not load anime data. Please try again later.');
+            \Log::warning('Tidak ada data anime yang diambil dari API');
+            session()->flash('warning', 'Tidak bisa memuat data anime. Silakan coba lagi nanti.');
         }
 
         return view('anime.all', compact('animes', 'pagination'));
     }
 
     /**
-     * Search for anime by keyword.
+     * Mencari anime berdasarkan kata kunci
      */
     public function search(Request $request)
     {
@@ -85,8 +85,8 @@ class AnimeController extends Controller
             $pagination = $response['pagination'];
 
             if (empty($animes)) {
-                \Log::warning('No anime found for search term: ' . $keyword);
-                session()->flash('warning', 'No anime found for your search term. Please try a different keyword.');
+                \Log::warning('Tidak ada anime ditemukan untuk pencarian: ' . $keyword);
+                session()->flash('warning', 'Tidak ada anime ditemukan. Silakan coba kata kunci yang berbeda.');
             }
         } else {
             $response = $this->jikanApiService->getTopAnime($page);
@@ -94,8 +94,8 @@ class AnimeController extends Controller
             $pagination = $response['pagination'];
 
             if (empty($animes)) {
-                \Log::warning('No anime data retrieved from API');
-                session()->flash('warning', 'Could not load anime data. Please try again later.');
+                \Log::warning('Tidak ada data anime yang diambil dari API');
+                session()->flash('warning', 'Tidak bisa memuat data anime. Silakan coba lagi nanti.');
             }
         }
 
@@ -103,7 +103,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form untuk membuat data baru
      */
     public function create()
     {
@@ -111,7 +111,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data baru ke dalam penyimpanan
      */
     public function store(Request $request)
     {
@@ -119,27 +119,27 @@ class AnimeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail anime
      */
     public function show($id)
     {
         $anime = $this->jikanApiService->getAnimeById($id);
 
         if (!$anime) {
-            \Log::warning('Anime not found or could not be loaded from API: ' . $id);
-            session()->flash('error', 'This anime could not be loaded. It may not exist or there was an issue retrieving it.');
-            return redirect()->route('anime.index')->with('error', 'This anime could not be loaded. It may not exist or there was an issue retrieving it.');
+            \Log::warning('Anime tidak ditemukan atau tidak bisa dimuat dari API: ' . $id);
+            session()->flash('error', 'Anime ini tidak bisa dimuat. Mungkin tidak tersedia atau ada masalah saat mengambilnya.');
+            return redirect()->route('anime.index')->with('error', 'Anime ini tidak bisa dimuat. Mungkin tidak tersedia atau ada masalah saat mengambilnya.');
         }
 
         return view('anime.show', compact('anime'));
     }
 
     /**
-     * Display the list of genres.
+     * Menampilkan daftar genre
      */
     public function genreList()
     {
-        // Common anime genres based on Jikan API (excluding adult content)
+        // Genre anime umum berdasarkan API Jikan (tanpa konten dewasa)
         $genres = [
             ['id' => 1, 'name' => 'Action'],
             ['id' => 2, 'name' => 'Adventure'],
@@ -189,18 +189,18 @@ class AnimeController extends Controller
     }
 
     /**
-     * Display anime by genre.
+     * Menampilkan anime berdasarkan genre
      */
     public function byGenre($genreId)
     {
         $page = request()->input('page', 1);
 
-        // Fetch anime by genre from the API
+        // Ambil anime berdasarkan genre dari API
         $response = $this->jikanApiService->getAnimeByGenre($genreId, $page);
         $animes = $response['data'] ?? [];
         $pagination = $response['pagination'];
 
-        // Find the genre name based on ID
+        // Temukan nama genre berdasarkan ID
         $availableGenres = [
             1 => 'Action',
             2 => 'Adventure',
@@ -246,13 +246,13 @@ class AnimeController extends Controller
             45 => 'Music',
         ];
 
-        $genreName = $availableGenres[$genreId] ?? 'Unknown Genre';
+        $genreName = $availableGenres[$genreId] ?? 'Genre Tidak Dikenal';
 
         return view('anime.by-genre', compact('animes', 'pagination', 'genreName', 'genreId'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan form untuk mengedit data
      */
     public function edit($id)
     {
@@ -260,7 +260,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data yang ditentukan di dalam penyimpanan
      */
     public function update(Request $request, $id)
     {
@@ -268,7 +268,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data yang ditentukan dari penyimpanan
      */
     public function destroy($id)
     {

@@ -28,7 +28,7 @@ class Favorite extends Model
     ];
 
     /**
-     * Get the user that owns the favorite
+     * Mendapatkan pengguna yang memiliki favorit ini
      */
     public function user(): BelongsTo
     {
@@ -36,7 +36,7 @@ class Favorite extends Model
     }
 
     /**
-     * Get the tags associated with the favorite
+     * Mendapatkan tag yang terkait dengan favorit ini
      */
     public function tags()
     {

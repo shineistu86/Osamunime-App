@@ -13,13 +13,13 @@ class FavoriteController extends Controller
     //
 
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar anime favorit
      */
     public function index(Request $request)
     {
         $query = Auth::user()->favorites()->with('user', 'tags');
 
-        // Handle filtering
+        // Menangani filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -34,9 +34,9 @@ class FavoriteController extends Controller
             });
         }
 
-        // Handle sorting
-        $sortBy = $request->get('sort_by', 'created_at'); // Default sort by creation date
-        $sortOrder = $request->get('sort_order', 'desc'); // Default sort order descending
+        // Menangani pengurutan
+        $sortBy = $request->get('sort_by', 'created_at'); // Urutkan berdasarkan tanggal dibuat secara default
+        $sortOrder = $request->get('sort_order', 'desc'); // Urutan menurun secara default
 
         $validSortColumns = ['title', 'score', 'rating', 'status', 'created_at'];
         if (in_array($sortBy, $validSortColumns)) {
@@ -47,14 +47,14 @@ class FavoriteController extends Controller
 
         $favorites = $query->paginate(12)->appends(request()->query());
 
-        // Get unique tags for filter dropdown
+        // Dapatkan tag unik untuk dropdown filter
         $allTags = Auth::user()->favorites()->with('tags')->get()->pluck('tags')->flatten()->unique('id')->sortBy('name');
 
         return view('favorites.index', compact('favorites', 'allTags'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form untuk membuat data baru
      */
     public function create()
     {
@@ -62,7 +62,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data baru ke dalam penyimpanan
      */
     public function store(StoreFavoriteRequest $request)
     {
@@ -78,7 +78,7 @@ class FavoriteController extends Controller
         $favorite->notes = $request->notes ?? null;
         $favorite->save();
 
-        // Handle tags if provided
+        // Menangani tag jika disediakan
         if ($request->has('tags')) {
             $tagNames = explode(',', $request->tags);
             $tagIds = [];
@@ -97,11 +97,11 @@ class FavoriteController extends Controller
             $favorite->tags()->attach($tagIds);
         }
 
-        return redirect()->route('favorites.index')->with('success', 'Anime added to favorites successfully!');
+        return redirect()->route('favorites.index')->with('success', 'Anime ditambahkan ke favorit berhasil!');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail anime favorit
      */
     public function show($id)
     {
@@ -110,7 +110,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan form untuk mengedit anime favorit
      */
     public function edit($id)
     {
@@ -119,7 +119,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data anime favorit di dalam penyimpanan
      */
     public function update(UpdateFavoriteRequest $request, $id)
     {
@@ -133,7 +133,7 @@ class FavoriteController extends Controller
             'notes' => $request->notes ?? null
         ]);
 
-        // Handle tags if provided
+        // Menangani tag jika disediakan
         if ($request->has('tags')) {
             $tagNames = explode(',', $request->tags);
             $tagIds = [];
@@ -152,22 +152,22 @@ class FavoriteController extends Controller
             $favorite->tags()->sync($tagIds);
         }
 
-        return redirect()->route('favorites.index')->with('success', 'Favorite updated successfully!');
+        return redirect()->route('favorites.index')->with('success', 'Favorit diperbarui berhasil!');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus anime favorit dari penyimpanan
      */
     public function destroy($id)
     {
         $favorite = Auth::user()->favorites()->findOrFail($id);
         $favorite->delete();
 
-        return redirect()->route('favorites.index')->with('success', 'Favorite removed successfully!');
+        return redirect()->route('favorites.index')->with('success', 'Favorit dihapus berhasil!');
     }
 
     /**
-     * Toggle favorite status for an anime
+     * Mengaktifkan/nonaktifkan status favorit untuk sebuah anime
      */
     public function toggleFavorite(Request $request)
     {
@@ -184,7 +184,7 @@ class FavoriteController extends Controller
 
         if ($existingFavorite) {
             $existingFavorite->delete();
-            return response()->json(['status' => 'removed', 'message' => 'Removed from favorites']);
+            return response()->json(['status' => 'removed', 'message' => 'Dihapus dari favorit']);
         } else {
             $favorite = new Favorite();
             $favorite->user_id = Auth::id();
@@ -192,10 +192,10 @@ class FavoriteController extends Controller
             $favorite->title = $request->title;
             $favorite->image_url = $request->image_url;
             $favorite->score = $request->score ?? null;
-            $favorite->status = 'Plan to Watch'; // Default status
+            $favorite->status = 'Plan to Watch'; // Status default
             $favorite->save();
 
-            return response()->json(['status' => 'added', 'message' => 'Added to favorites']);
+            return response()->json(['status' => 'added', 'message' => 'Ditambahkan ke favorit']);
         }
     }
 }
