@@ -64,15 +64,6 @@
                         </li>
                     </ul>
 
-                    <!-- Dark Mode Toggle -->
-                    <ul class="navbar-nav me-3">
-                        <li class="nav-item">
-                            <button class="btn btn-outline-light" id="theme-toggle" aria-label="Toggle dark mode">
-                                <i class="fas fa-moon" id="theme-icon"></i>
-                            </button>
-                        </li>
-                    </ul>
-
                     <!-- Search Form -->
                     <form class="d-flex me-3" action="{{ route('anime.search') }}" method="GET">
                         <div class="input-group">
@@ -187,42 +178,6 @@
             });
         });
 
-        // Dark mode toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            const body = document.body;
-
-            // Check for saved theme preference or respect OS preference
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-            // Apply the theme
-            if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-                body.setAttribute('data-theme', 'dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                body.removeAttribute('data-theme');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-
-            // Toggle theme when button is clicked
-            themeToggle.addEventListener('click', function() {
-                if (body.getAttribute('data-theme') === 'dark') {
-                    body.removeAttribute('data-theme');
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                    localStorage.setItem('theme', 'dark');
-                }
-            });
-        });
     </script>
 </body>
 </html>
