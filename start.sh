@@ -5,8 +5,16 @@
 # Set the application URL to the Railway-provided URL
 export APP_URL="https://${RAILWAY_PUBLIC_URL:-localhost}"
 
-# Check if we're using Railway's PostgreSQL
-if [ ! -z "$POSTGRES_HOST" ]; then
+# Check if we're using Railway's PostgreSQL (using the variables provided by Railway)
+if [ ! -z "$PGHOST" ]; then
+    export DB_CONNECTION=pgsql
+    export DB_HOST=$PGHOST
+    export DB_PORT=$PGPORT
+    export DB_DATABASE=$PGDATABASE
+    export DB_USERNAME=$PGUSER
+    export DB_PASSWORD=$PGPASSWORD
+elif [ ! -z "$POSTGRES_HOST" ]; then
+    # Fallback to POSTGRES_* variables if PG_* are not available
     export DB_CONNECTION=pgsql
     export DB_HOST=$POSTGRES_HOST
     export DB_PORT=$POSTGRES_PORT
@@ -32,6 +40,10 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
+# Cache configuration before running migrations to ensure correct DB settings are used
+php artisan config:clear
+php artisan config:cache
+
 # Wait a bit for the database to be ready
 sleep 5
 
@@ -42,30 +54,9 @@ php artisan migrate --force --no-interaction
 php artisan vendor:publish --tag=laravel-assets --force
 npm run build
 
-# Cache configuration for better performance
-php artisan config:clear
+# Clear and cache configuration for better performance after migrations
 php artisan route:clear
 php artisan view:clear
-
-# Check if we're using Railway's PostgreSQL (using the variables provided by Railway)
-if [ ! -z "$PGHOST" ]; then
-    export DB_CONNECTION=pgsql
-    export DB_HOST=$PGHOST
-    export DB_PORT=$PGPORT
-    export DB_DATABASE=$PGDATABASE
-    export DB_USERNAME=$PGUSER
-    export DB_PASSWORD=$PGPASSWORD
-elif [ ! -z "$POSTGRES_HOST" ]; then
-    # Fallback to POSTGRES_* variables if PG_* are not available
-    export DB_CONNECTION=pgsql
-    export DB_HOST=$POSTGRES_HOST
-    export DB_PORT=$POSTGRES_PORT
-    export DB_DATABASE=$POSTGRES_DB
-    export DB_USERNAME=$POSTGRES_USER
-    export DB_PASSWORD=$POSTGRES_PASSWORD
-fi
-
-# Re-cache configuration after setting environment variables
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
