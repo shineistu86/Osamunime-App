@@ -47,8 +47,16 @@ php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
-# Set DB_CONNECTION to pgsql if POSTGRES_HOST is available
-if [ ! -z "$POSTGRES_HOST" ]; then
+# Check if we're using Railway's PostgreSQL (using the variables provided by Railway)
+if [ ! -z "$PGHOST" ]; then
+    export DB_CONNECTION=pgsql
+    export DB_HOST=$PGHOST
+    export DB_PORT=$PGPORT
+    export DB_DATABASE=$PGDATABASE
+    export DB_USERNAME=$PGUSER
+    export DB_PASSWORD=$PGPASSWORD
+elif [ ! -z "$POSTGRES_HOST" ]; then
+    # Fallback to POSTGRES_* variables if PG_* are not available
     export DB_CONNECTION=pgsql
     export DB_HOST=$POSTGRES_HOST
     export DB_PORT=$POSTGRES_PORT
