@@ -137,13 +137,13 @@ Kontribusi sangat diterima! Silakan fork repository ini dan buat pull request un
 
 Namun, ada beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
 
-1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan SQLite sebagai database utama. File database disimpan sebagai `database/database.sqlite` di dalam folder proyek.
+1. **Database lokal** - Aplikasi ini sekarang dikonfigurasi untuk menggunakan MySQL sebagai database utama. Database yang digunakan bernama `osamunime_db` dan dapat diakses melalui phpMyAdmin.
 
 2. **API key** - Aplikasi ini menggunakan Jikan API untuk mengambil data anime. Umumnya Jikan API tidak memerlukan API key untuk penggunaan dasar, namun pembatasan rate limit mungkin berlaku.
 
 3. **Koneksi internet** - Karena aplikasi mengambil data dari API eksternal, koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap.
 
-4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat membuka file `database/database.sqlite` menggunakan aplikasi SQLite browser seperti DB Browser for SQLite.
+4. **Akses database** - Untuk melihat data pengguna, favorit, dan tag secara langsung, Anda dapat mengakses database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
 
 ## Lisensi
 
@@ -152,9 +152,9 @@ Proyek ini dilisensikan di bawah lisensi MIT.
 ## Akses Aplikasi
 
 - **Aplikasi Web**: `http://localhost:8000`
-- **Database (SQLite)**: `database/database.sqlite` (di dalam folder proyek)
+- **Database (phpMyAdmin)**: `http://localhost/phpmyadmin` (database: `osamunime_db`)
 - **API Jikan**: Otomatis digunakan untuk mengambil data anime dari `https://api.jikan.moe/v4`
 
 ## Deployment
 
-Aplikasi ini saat ini dikonfigurasi untuk penggunaan lokal. Untuk deployment ke platform hosting produksi, konfigurasi database perlu disesuaikan dengan lingkungan produksi (misalnya MySQL).
+Aplikasi ini saat ini dikonfigurasi untuk penggunaan lokal. Untuk deployment ke platform hosting produksi, konfigurasi database perlu disesuaikan dengan lingkungan produksi.
