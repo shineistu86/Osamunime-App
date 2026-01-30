@@ -65,8 +65,8 @@
                     </ul>
 
                     <!-- Search Form -->
-                    <form class="d-flex me-3 flex-grow-1" action="{{ route('anime.search') }}" method="GET">
-                        <div class="input-group w-100">
+                    <form class="d-flex me-3" action="{{ route('anime.search') }}" method="GET">
+                        <div class="input-group">
                             <input class="form-control" type="search" name="q" placeholder="{{ __('Search anime...') }}" aria-label="{{ __('Search') }}" value="{{ request('q') }}">
                             <button class="btn btn-outline-light" type="submit">{{ __('Search') }}</button>
                         </div>
