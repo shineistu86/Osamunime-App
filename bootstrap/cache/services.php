@@ -33,6 +33,7 @@
     29 => 'Termwind\\Laravel\\TermwindServiceProvider',
     30 => 'Revolution\\Vercel\\VercelInstallerServiceProvider',
     31 => 'App\\Providers\\AppServiceProvider',
+    32 => 'App\\Providers\\DatabaseServiceProvider',
   ),
   'eager' => 
   array (
@@ -53,6 +54,7 @@
     14 => 'Termwind\\Laravel\\TermwindServiceProvider',
     15 => 'Revolution\\Vercel\\VercelInstallerServiceProvider',
     16 => 'App\\Providers\\AppServiceProvider',
+    17 => 'App\\Providers\\DatabaseServiceProvider',
   ),
   'deferred' => 
   array (
