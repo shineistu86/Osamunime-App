@@ -64,15 +64,6 @@
                         </li>
                     </ul>
 
-                    <!-- Dark Mode Toggle -->
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <button class="btn btn-outline-light" id="theme-toggle" aria-label="Toggle dark mode">
-                                <i class="fas fa-sun" id="theme-icon"></i>
-                            </button>
-                        </li>
-                    </ul>
-
                     <!-- Search Form -->
                     <form class="d-flex me-3" action="{{ route('anime.search') }}" method="GET">
                         <div class="input-group">
@@ -80,6 +71,15 @@
                             <button class="btn btn-outline-light" type="submit">{{ __('Search') }}</button>
                         </div>
                     </form>
+
+                    <!-- Dark Mode Toggle -->
+                    <ul class="navbar-nav me-3">
+                        <li class="nav-item">
+                            <button class="btn btn-outline-light" id="theme-toggle" aria-label="Toggle dark mode">
+                                <i class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -200,10 +200,12 @@
             // Apply the theme
             if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
                 body.setAttribute('data-theme', 'dark');
+                // When dark mode is active, show moon icon
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
             } else {
                 body.removeAttribute('data-theme');
+                // When light mode is active, show sun icon
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
             }
@@ -213,12 +215,14 @@
                 if (body.getAttribute('data-theme') === 'dark') {
                     // Switch to light mode
                     body.removeAttribute('data-theme');
+                    // Show sun icon for light mode
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
                     localStorage.setItem('theme', 'light');
                 } else {
                     // Switch to dark mode
                     body.setAttribute('data-theme', 'dark');
+                    // Show moon icon for dark mode
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
                     localStorage.setItem('theme', 'dark');
