@@ -19,13 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Check if we're running on Railway with PostgreSQL
-        if (isset($_SERVER['RAILWAY_PROJECT_ID']) || !empty(getenv('PGHOST'))) {
-            // Use PostgreSQL when running on Railway
-            if (config('database.default') !== 'pgsql') {
-                config(['database.default' => 'pgsql']);
-            }
-        }
-        // Otherwise, use the default configuration from .env
+        //
     }
 }
