@@ -69,11 +69,27 @@ Osamunime adalah aplikasi web yang memungkinkan pengguna untuk mencari, menyimpa
 
 7. Pastikan MySQL server (Laragon/XAMPP) sedang berjalan
 
-8. Konfigurasi database MySQL di file .env (pastikan DB_CONNECTION=mysql, DB_HOST=127.0.0.1, DB_PORT=3306, DB_DATABASE=osamunime_db, DB_USERNAME=root, dan DB_PASSWORD sesuai dengan pengaturan MySQL Anda).
+8. Konfigurasi database MySQL di file .env:
+   - Pastikan `DB_CONNECTION=mysql`
+   - `DB_HOST=127.0.0.1`
+   - `DB_PORT=3306`
+   - `DB_DATABASE=osamunime_db`
+   - `DB_USERNAME=root`
+   - `DB_PASSWORD=` (kosongkan jika menggunakan Laragon default)
 
-9. Jalankan migrasi database:
+9. Buat database secara manual jika belum ada:
+   ```bash
+   mysql -u root -e "CREATE DATABASE IF NOT EXISTS osamunime_db;"
+   ```
+
+10. Jalankan migrasi database:
     ```bash
     php artisan migrate
+    ```
+
+11. (Opsional) Jalankan seeder untuk data awal:
+    ```bash
+    php artisan db:seed
     ```
 
 ### Menjalankan Aplikasi
@@ -86,18 +102,23 @@ Osamunime adalah aplikasi web yang memungkinkan pengguna untuk mencari, menyimpa
 
 2. Buka browser dan akses `http://localhost:8000`
 
+3. Untuk mengakses dari perangkat lain di jaringan yang sama, gunakan IP lokal komputer Anda:
+   - Contoh: `http://192.168.1.100:8000` (ganti dengan IP lokal Anda)
+
 ### Untuk Development (dengan hot reload)
 
 1. Buka terminal/command prompt pertama dan jalankan server Laravel:
 
     ```bash
-    php artisan serve
+    php artisan serve --host=0.0.0.0 --port=8000
     ```
 
 2. Buka terminal/command prompt kedua dan jalankan Vite watcher untuk hot reload CSS/JS:
     ```bash
     npm run dev
     ```
+
+3. Akses aplikasi di browser melalui `http://localhost:8000` atau IP lokal Anda
 
 ## Fitur Utama
 
