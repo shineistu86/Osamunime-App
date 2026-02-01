@@ -112,13 +112,44 @@ Osamunime adalah aplikasi web yang memungkinkan pengguna untuk mencari, menyimpa
 
 ## Cara Menggunakan Aplikasi
 
-1. **Mencari Anime**: Gunakan kolom pencarian di halaman utama untuk mencari judul anime
-2. **Melihat Detail**: Klik pada kartu anime untuk melihat detail lengkap
-3. **Menyimpan Favorit**: Klik tombol "Add to Favorites" di halaman detail anime
-4. **Mengelola Favorit**: Kunjungi halaman "My Favorites" untuk melihat, mengedit, atau menghapus anime favorit
-5. **Memberi Rating**: Beri rating dan ulasan pada anime favorit Anda
-6. **Menyaring**: Gunakan fitur filter untuk menyaring anime favorit berdasarkan rating, abjad, dll.
-7. **Mode Gelap**: Aktifkan mode gelap menggunakan toggle di pojok kanan atas
+1. **Registrasi Akun**:
+   - Kunjungi halaman `/register` untuk membuat akun baru
+   - Data user (nama, email, password) akan disimpan ke tabel `users` di database MySQL
+   - Password akan di-hash untuk keamanan
+
+2. **Login**:
+   - Setelah registrasi, gunakan halaman `/login` untuk masuk
+   - Session login akan disimpan di tabel `sessions` di database
+
+3. **Mencari Anime**:
+   - Gunakan kolom pencarian di halaman utama untuk mencari judul anime dari API Jikan
+   - Hasil pencarian akan ditampilkan dalam bentuk kartu-kartu anime
+
+4. **Melihat Detail**:
+   - Klik pada kartu anime untuk melihat detail lengkap termasuk deskripsi, rating, jumlah episode, dll.
+
+5. **Menyimpan Favorit**:
+   - Klik tombol "Add to Favorites" di halaman detail anime
+   - Data anime favorit akan disimpan ke tabel `favorites` di database MySQL
+   - Anda bisa menambahkan rating dan review pada anime tersebut
+
+6. **Mengelola Favorit**:
+   - Kunjungi halaman "My Favorites" untuk melihat, mengedit, atau menghapus anime favorit
+   - Di halaman ini Anda bisa mengedit rating, review, status penonton (misalnya: watching, completed, on hold, dll.), dan catatan tambahan
+
+7. **Tagging**:
+   - Anda bisa menambahkan tag ke anime favorit untuk mengategorinya
+   - Tag disimpan di tabel `tags` dan hubungan antara favorite dan tag disimpan di tabel `favorite_tag`
+
+8. **Filter dan Sortir**:
+   - Gunakan fitur filter untuk menyaring anime favorit berdasarkan rating, abjad, status, dll.
+   - Anda juga bisa menyortir berdasarkan berbagai kriteria
+
+9. **Mode Gelap**:
+   - Aktifkan mode gelap menggunakan toggle di pojok kanan atas untuk kenyamanan penggunaan jangka panjang
+
+10. **Logout**:
+   - Gunakan tombol logout di menu navigasi untuk keluar dari akun
 
 ## Tangkapan Layar (Screenshot)
 
