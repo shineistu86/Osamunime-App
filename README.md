@@ -13,8 +13,8 @@ Osamunime adalah aplikasi web yang memungkinkan pengguna untuk mencari, menyimpa
 
 -   **Backend:** Laravel 12.x (PHP Framework)
 -   **Frontend:** Tailwind CSS v4, JavaScript, Bootstrap 5
--   **Database:** MySQL (lokal)
--   **API:** Jikan API (untuk data anime)
+-   **Database:** MySQL (lokal) - menyimpan data pengguna, anime favorit, rating, review, dan tag
+-   **API:** Jikan API (untuk data anime eksternal)
 -   **Build Tool:** Vite
 -   **Server:** PHP Built-in Server
 -   **Bahasa Pemrograman:** PHP 8.2+, JavaScript, CSS
@@ -189,6 +189,18 @@ Beberapa hal yang perlu diperhatikan agar aplikasi bisa digunakan sepenuhnya:
 3. **Koneksi internet** - Koneksi internet diperlukan untuk menampilkan informasi anime secara lengkap dari API.
 
 4. **Akses database** - Data pengguna, favorit, dan tag dapat dilihat langsung di database `osamunime_db` melalui phpMyAdmin di `http://localhost/phpmyadmin`.
+
+## Struktur Database
+
+Aplikasi ini menggunakan beberapa tabel di database MySQL untuk menyimpan berbagai jenis data:
+
+-   **`users`**: Menyimpan informasi akun pengguna (nama, email, password terenkripsi)
+-   **`favorites`**: Menyimpan daftar anime favorit pengguna beserta rating, review, dan status penonton
+-   **`tags`**: Menyimpan tag-tag yang dapat diberikan ke anime favorit
+-   **`favorite_tag`**: Tabel pivot yang menghubungkan antara anime favorit dan tag-tag yang diberikan
+-   **`sessions`**: Menyimpan informasi session login pengguna
+-   **`migrations`**: Melacak migrasi database yang telah dijalankan
+-   **`cache`**: Tabel opsional untuk caching (jika diaktifkan)
 
 ## Lisensi
 
