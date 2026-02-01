@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimeController;
 use App\Http\Controllers\FavoriteController;
+use App\Models\User;
+use App\Models\Favorite;
+use App\Models\Tag;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +35,12 @@ Route::get('/anime/genre/{id}', [AnimeController::class, 'byGenre'])->name('anim
 Route::get('/anime/all', [AnimeController::class, 'all'])->name('anime.all');
 Route::get('/anime/search', [AnimeController::class, 'search'])->name('anime.search');
 Route::get('/anime/{id}', [AnimeController::class, 'show'])->name('anime.show');
+
+// Route for testing database
+Route::get('/test-db', function () {
+    $users = User::all();
+    $favorites = Favorite::all();
+    $tags = Tag::all();
+
+    return view('test-db', compact('users', 'favorites', 'tags'));
+});

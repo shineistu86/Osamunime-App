@@ -15,7 +15,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan daftar anime
+     * Tampilkan daftar anime
      */
     public function index(Request $request)
     {
@@ -34,7 +34,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan anime populer
+     * Tampilkan anime populer
      */
     public function popular(Request $request)
     {
@@ -52,7 +52,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan semua anime dengan pagination
+     * Tampilkan semua anime dengan pagination
      */
     public function all(Request $request)
     {
@@ -72,7 +72,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Mencari anime berdasarkan kata kunci
+     * Cari anime berdasarkan kata kunci
      */
     public function search(Request $request)
     {
@@ -103,7 +103,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan form untuk membuat data baru
+     * Tampilkan form buat bikin data baru
      */
     public function create()
     {
@@ -111,7 +111,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menyimpan data baru ke dalam penyimpanan
+     * Simpan data baru ke dalam penyimpanan
      */
     public function store(Request $request)
     {
@@ -119,7 +119,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan detail anime
+     * Tampilkan detail anime
      */
     public function show($id)
     {
@@ -135,7 +135,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan daftar genre
+     * Tampilkan daftar genre
      */
     public function genreList()
     {
@@ -189,7 +189,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan anime berdasarkan genre
+     * Tampilkan anime berdasarkan genre
      */
     public function byGenre($genreId)
     {
@@ -252,7 +252,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menampilkan form untuk mengedit data
+     * Tampilkan form buat edit data
      */
     public function edit($id)
     {
@@ -260,7 +260,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Memperbarui data yang ditentukan di dalam penyimpanan
+     * Perbarui data yang ditentukan di dalam penyimpanan
      */
     public function update(Request $request, $id)
     {
@@ -268,7 +268,7 @@ class AnimeController extends Controller
     }
 
     /**
-     * Menghapus data yang ditentukan dari penyimpanan
+     * Hapus data yang ditentukan dari penyimpanan
      */
     public function destroy($id)
     {

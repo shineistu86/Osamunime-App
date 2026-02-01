@@ -7,15 +7,15 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateFavoriteRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Cek apakah user punya izin buat bikin request ini.
      */
     public function authorize(): bool
     {
-        return true; // Assuming authenticated users can update their favorites
+        return true; // Anggap aja user yang udah login bisa update favorit mereka
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Ambil aturan validasi yang berlaku buat request ini.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -32,14 +32,14 @@ class UpdateFavoriteRequest extends FormRequest
     }
 
     /**
-     * Get the error messages for the defined validation rules.
+     * Ambil pesan error buat aturan validasi yang udah didefinisikan.
      *
      * @return array<string, string>
      */
     public function messages(): array
     {
         return [
-            'status.in' => 'The status must be Watching, Completed, or Plan to Watch.'
+            'status.in' => 'Status harus salah satu dari: Watching, Completed, atau Plan to Watch.'
         ];
     }
 }

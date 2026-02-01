@@ -13,13 +13,13 @@ class FavoriteController extends Controller
     //
 
     /**
-     * Menampilkan daftar anime favorit
+     * Tampilkan daftar anime favorit
      */
     public function index(Request $request)
     {
         $query = Auth::user()->favorites()->with('user', 'tags');
 
-        // Menangani filter
+        // Tangani filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -34,7 +34,7 @@ class FavoriteController extends Controller
             });
         }
 
-        // Menangani pengurutan
+        // Tangani pengurutan
         $sortBy = $request->get('sort_by', 'created_at'); // Urutkan berdasarkan tanggal dibuat secara default
         $sortOrder = $request->get('sort_order', 'desc'); // Urutan menurun secara default
 
@@ -47,14 +47,14 @@ class FavoriteController extends Controller
 
         $favorites = $query->paginate(12)->appends(request()->query());
 
-        // Dapatkan tag unik untuk dropdown filter
+        // Dapatin tag unik buat dropdown filter
         $allTags = Auth::user()->favorites()->with('tags')->get()->pluck('tags')->flatten()->unique('id')->sortBy('name');
 
         return view('favorites.index', compact('favorites', 'allTags'));
     }
 
     /**
-     * Menampilkan form untuk membuat data baru
+     * Tampilkan form untuk bikin data baru
      */
     public function create()
     {
@@ -62,7 +62,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Menyimpan data baru ke dalam penyimpanan
+     * Simpan data baru ke dalam penyimpanan
      */
     public function store(StoreFavoriteRequest $request)
     {
@@ -78,7 +78,7 @@ class FavoriteController extends Controller
         $favorite->notes = $request->notes ?? null;
         $favorite->save();
 
-        // Menangani tag jika disediakan
+        // Tangani tag kalo disediain
         if ($request->has('tags')) {
             $tagNames = explode(',', $request->tags);
             $tagIds = [];
@@ -101,7 +101,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Menampilkan detail anime favorit
+     * Tampilkan detail anime favorit
      */
     public function show($id)
     {
@@ -110,7 +110,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Menampilkan form untuk mengedit anime favorit
+     * Tampilkan form untuk edit anime favorit
      */
     public function edit($id)
     {
@@ -119,7 +119,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Memperbarui data anime favorit di dalam penyimpanan
+     * Perbarui data anime favorit di dalam penyimpanan
      */
     public function update(UpdateFavoriteRequest $request, $id)
     {
@@ -133,7 +133,7 @@ class FavoriteController extends Controller
             'notes' => $request->notes ?? null
         ]);
 
-        // Menangani tag jika disediakan
+        // Tangani tag kalo disediain
         if ($request->has('tags')) {
             $tagNames = explode(',', $request->tags);
             $tagIds = [];
@@ -156,7 +156,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Menghapus anime favorit dari penyimpanan
+     * Hapus anime favorit dari penyimpanan
      */
     public function destroy($id)
     {
@@ -167,7 +167,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Mengaktifkan/nonaktifkan status favorit untuk sebuah anime
+     * Aktifkan/nonaktifkan status favorit buat sebuah anime
      */
     public function toggleFavorite(Request $request)
     {

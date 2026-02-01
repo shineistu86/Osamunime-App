@@ -17,7 +17,7 @@ class JikanApiService
     }
 
     /**
-     * Mendapatkan anime terpopuler dari API Jikan
+     * Ambil anime terpopuler dari API Jikan
      *
      * @param int $page
      * @return array
@@ -37,7 +37,7 @@ class JikanApiService
     }
 
     /**
-     * Metode internal untuk mengambil anime terpopuler tanpa cache
+     * Ambil anime terpopuler tanpa cache
      *
      * @param int $page
      * @return array
@@ -78,7 +78,7 @@ class JikanApiService
     }
 
     /**
-     * Mencari anime berdasarkan kata kunci dari API Jikan
+     * Cari anime berdasarkan kata kunci dari API Jikan
      *
      * @param string $keyword
      * @param int $page
@@ -99,7 +99,7 @@ class JikanApiService
     }
 
     /**
-     * Metode internal untuk mencari anime tanpa cache
+     * Cari anime tanpa cache
      *
      * @param string $keyword
      * @param int $page
@@ -150,7 +150,7 @@ class JikanApiService
     }
 
     /**
-     * Mendapatkan detail anime berdasarkan ID dari API Jikan
+     * Ambil detail anime berdasarkan ID dari API Jikan
      *
      * @param int $id
      * @return array|null
@@ -170,7 +170,7 @@ class JikanApiService
     }
 
     /**
-     * Metode internal untuk mengambil anime berdasarkan ID tanpa cache
+     * Ambil detail anime berdasarkan ID tanpa cache
      *
      * @param int $id
      * @return array|null
@@ -202,7 +202,7 @@ class JikanApiService
     }
 
     /**
-     * Mendapatkan anime berdasarkan genre dari API Jikan
+     * Ambil anime berdasarkan genre dari API Jikan
      *
      * @param int $genreId
      * @param int $page
@@ -223,7 +223,7 @@ class JikanApiService
     }
 
     /**
-     * Metode internal untuk mengambil anime berdasarkan genre tanpa cache
+     * Ambil anime berdasarkan genre tanpa cache
      *
      * @param int $genreId
      * @param int $page
