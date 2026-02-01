@@ -1,5 +1,9 @@
 # Osamunime - Aplikasi Manajemen Anime Favorit
 
+## Deskripsi Aplikasi
+
+Osamunime adalah aplikasi web yang memungkinkan pengguna untuk mencari, menyimpan, dan mengelola daftar anime favorit mereka. Aplikasi ini menyediakan antarmuka yang intuitif untuk menavigasi berbagai judul anime, menyimpannya ke daftar favorit, serta memberikan rating dan ulasan.
+
 ## Nama & NIM Mahasiswa
 
 -   **Nama:** HISYAM EKA PRAMUDITA
@@ -8,12 +12,12 @@
 ## Teknologi yang Digunakan
 
 -   **Backend:** Laravel 12.x (PHP Framework)
--   **Frontend:** Bootstrap 5, JavaScript
+-   **Frontend:** Tailwind CSS v4, JavaScript, Bootstrap 5
 -   **Database:** MySQL (lokal)
 -   **API:** Jikan API (untuk data anime)
 -   **Build Tool:** Vite
 -   **Server:** PHP Built-in Server
--   **Bahasa Pemrograman:** PHP 8.2+, JavaScript
+-   **Bahasa Pemrograman:** PHP 8.2+, JavaScript, CSS
 
 ## Cara Instalasi dan Menjalankan Aplikasi
 
@@ -29,7 +33,7 @@
 1. Clone repository ini:
 
     ```bash
-    git clone <url-repository>
+    git clone https://github.com/shineistu86/Osamunime-App.git
     cd Osamunime-App
     ```
 
@@ -102,7 +106,19 @@
 -   Menambahkan rating dan review untuk anime favorit
 -   Menyaring dan mengurutkan anime favorit
 -   Sistem tagging untuk anime favorit
--   Responsive design untuk berbagai ukuran layar
+-   Fitur pencarian dan filter berdasarkan genre
+-   Antarmuka yang responsif untuk berbagai ukuran layar
+-   Mode gelap (dark mode) untuk kenyamanan penggunaan jangka panjang
+
+## Cara Menggunakan Aplikasi
+
+1. **Mencari Anime**: Gunakan kolom pencarian di halaman utama untuk mencari judul anime
+2. **Melihat Detail**: Klik pada kartu anime untuk melihat detail lengkap
+3. **Menyimpan Favorit**: Klik tombol "Add to Favorites" di halaman detail anime
+4. **Mengelola Favorit**: Kunjungi halaman "My Favorites" untuk melihat, mengedit, atau menghapus anime favorit
+5. **Memberi Rating**: Beri rating dan ulasan pada anime favorit Anda
+6. **Menyaring**: Gunakan fitur filter untuk menyaring anime favorit berdasarkan rating, abjad, dll.
+7. **Mode Gelap**: Aktifkan mode gelap menggunakan toggle di pojok kanan atas
 
 ## Tangkapan Layar (Screenshot)
 
